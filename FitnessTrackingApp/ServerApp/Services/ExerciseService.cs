@@ -12,13 +12,9 @@ namespace FitnessTrackingApp.ServerApp.Services
             _context = context;
         }
 
-        public void AddExercise(int id, string name)
+        public void AddExercise(string name)
         {
-            Exercise exercise = new Exercise();
-            exercise.Id = id;
-            exercise.Title = name;
-            _context.Add(exercise);
-            _context.SaveChanges();
+
         }
     }
 }

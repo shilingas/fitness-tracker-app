@@ -30,7 +30,7 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html"); ;
-
+/*
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -38,6 +38,6 @@ using (var scope = app.Services.CreateScope())
     var exerciseService = new ExerciseService(context);
     exerciseService.AddExercise(0, "TEST");
 }
-
+*/
 
 app.Run();
