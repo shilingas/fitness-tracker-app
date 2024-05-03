@@ -1,9 +1,16 @@
+using FitnessTrackingApp.ServerApp.DataContext;
+using FitnessTrackingApp.ServerApp.Services;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddDbContext<WorkoutContext>(options =>
+{
+    options.UseMySQL(builder.Configuration.GetConnectionString("Host"));
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,5 +30,14 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html"); ;
+/*
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<WorkoutContext>();
+    var exerciseService = new ExerciseService(context);
+    exerciseService.AddExercise(0, "TEST");
+}
+*/
 
 app.Run();
