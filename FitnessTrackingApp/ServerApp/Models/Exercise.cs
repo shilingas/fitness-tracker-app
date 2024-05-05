@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FitnessTrackingApp.ServerApp.Other.Dto;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,9 +19,15 @@ namespace FitnessTrackingApp.ServerApp.Models
 
         public byte[]? ImageData { get; set; }
 
-        public Exercise(string title)
+        public Exercise()
         {
-            Title = title;
+        }
+
+        public Exercise(ExercisePost exercisePost)
+        {
+            Title = exercisePost.Title;
+            Description = exercisePost.Description;
+            ImageData = exercisePost.ImageData;
         }
     }
 }
