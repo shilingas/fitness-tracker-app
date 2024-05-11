@@ -5,17 +5,11 @@ import { TestModel } from '../models/TestModel';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.css']
+  styleUrls: ['./home-page.component.css'],
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent {
+  constructor() {
 
-  randomData: TestModel[] = [];
-
-  constructor(private dataService: DataService) { }
-
-  ngOnInit(): void {
-    this.dataService.getRandomData().subscribe((data: TestModel[]) => {
-      this.randomData = data;
-    });
   }
+
 }
