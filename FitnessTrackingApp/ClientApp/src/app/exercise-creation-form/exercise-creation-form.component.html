@@ -1,0 +1,15 @@
+<form [formGroup]="formGroup" class="exercise-form" (ngSubmit)="handleSubmit(formGroup)">
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <input matInput formControlName="description">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>Image data</mat-label>
+    <textarea formControlName="imageData" matInput placeholder="Write a short description of your exercise..."></textarea>
+  </mat-form-field>
+  <button mat-flat-button color="primary">Primary</button>
+</form>

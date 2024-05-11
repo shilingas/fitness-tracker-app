@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Exercise } from '../../models/Exercise';
 import { TestModel } from '../../models/TestModel';
 
 @Injectable({
@@ -10,7 +11,8 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  getRandomData(): Observable<TestModel[]> {
-    return this.http.get<TestModel[]>('https://api.github.com/users');
+  createExercise(exercise: Exercise): Observable<Exercise> {
+    console.log('test');
+    return this.http.post<Exercise>('https://localhost:7282/api/Exercise', exercise);
   }
 }
