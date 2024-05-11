@@ -1,22 +1,34 @@
 using FitnessTrackingApp.ServerApp.DataContext;
+using FitnessTrackingApp.ServerApp.IServices;
 using FitnessTrackingApp.ServerApp.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add Swagger services
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Workout API",
+        Version = "v1"
+    });
+});
 
+// Add controllers and other services
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IExerciseService, ExerciseService>();
 builder.Services.AddDbContext<WorkoutContext>(options =>
 {
     options.UseMySQL(builder.Configuration.GetConnectionString("Host"));
 });
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
 {
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -24,20 +36,17 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Workout API v1");
+});
+/*
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
 
-app.MapFallbackToFile("index.html"); ;
-/*
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<WorkoutContext>();
-    var exerciseService = new ExerciseService(context);
-    exerciseService.AddExercise(0, "TEST");
-}
+app.MapFallbackToFile("index.html");
 */
-
+app.MapControllers();
 app.Run();
