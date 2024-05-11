@@ -1,5 +1,6 @@
 ﻿using FitnessTrackingApp.ServerApp.IServices;
 using FitnessTrackingApp.ServerApp.Other.Dto;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace FitnessTrackingApp.ServerApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("corsapp")]
     public class ExerciseController : ControllerBase
     {
         private readonly IExerciseService _exerciseService;
