@@ -14,7 +14,7 @@ namespace FitnessTrackingApp.ServerApp.Models
 
         public ICollection<UserExercise> UserExercises { get; set; }
 
-        [Timestamp]
-        public byte[] Version { get; set; }
+        [ConcurrencyCheck]
+        public Guid Version { get; set; }
     }
 }

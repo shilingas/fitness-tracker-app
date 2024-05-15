@@ -24,19 +24,19 @@ namespace FitnessTrackingApp.ServerApp.DataContext
 
             modelBuilder.Entity<Exercise>()
                .Property(p => p.Version)
-               .IsRowVersion();
+               .IsConcurrencyToken();
 
             modelBuilder.Entity<Workout>()
                .Property(p => p.Version)
-               .IsRowVersion();
+               .IsConcurrencyToken();
 
             modelBuilder.Entity<User>()
                .Property(p => p.Version)
-               .IsRowVersion();
+               .IsConcurrencyToken();
 
             modelBuilder.Entity<UserExercise>()
                .Property(p => p.Version)
-               .IsRowVersion();
+               .IsConcurrencyToken();
         }
     }
 }

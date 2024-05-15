@@ -3,6 +3,7 @@ using System;
 using FitnessTrackingApp.ServerApp.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessTrackingApp.Migrations
 {
     [DbContext(typeof(WorkoutContext))]
-    partial class WorkoutContextModelSnapshot : ModelSnapshot
+    [Migration("20240515070721_OptimistLock")]
+    partial class OptimistLock
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,9 +38,11 @@ namespace FitnessTrackingApp.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<Guid>("Version")
+                    b.Property<byte[]>("Version")
                         .IsConcurrencyToken()
-                        .HasColumnType("char(36)");
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("longblob");
 
                     b.HasKey("Id");
 
@@ -69,9 +73,11 @@ namespace FitnessTrackingApp.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<Guid>("Version")
+                    b.Property<byte[]>("Version")
                         .IsConcurrencyToken()
-                        .HasColumnType("char(36)");
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("longblob");
 
                     b.Property<float>("Weight")
                         .HasColumnType("float");
@@ -99,9 +105,11 @@ namespace FitnessTrackingApp.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("Version")
+                    b.Property<byte[]>("Version")
                         .IsConcurrencyToken()
-                        .HasColumnType("char(36)");
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("longblob");
 
                     b.Property<Guid>("WorkoutId")
                         .HasColumnType("char(36)");
@@ -124,9 +132,11 @@ namespace FitnessTrackingApp.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<Guid>("Version")
+                    b.Property<byte[]>("Version")
                         .IsConcurrencyToken()
-                        .HasColumnType("char(36)");
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("longblob");
 
                     b.HasKey("Id");
 
