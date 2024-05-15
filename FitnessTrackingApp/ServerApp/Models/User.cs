@@ -24,6 +24,9 @@ namespace FitnessTrackingApp.ServerApp.Models
 
         public int GoalWeight { get; set; }
 
+        [Timestamp]
+        public byte[] Version { get; set; }
+
 
     }
 }

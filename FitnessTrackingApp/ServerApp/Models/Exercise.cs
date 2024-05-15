@@ -15,9 +15,14 @@ namespace FitnessTrackingApp.ServerApp.Models
         [Required]
         public string Title { get; set; }
 
+        [Required]
+        public string Category {  get; set; }
+
         public string? Description { get; set; }
 
-        public byte[]? ImageData { get; set; }
+        [Timestamp]
+        public byte[] Version { get; set; }
+
 
         public Exercise()
         {
@@ -26,8 +31,8 @@ namespace FitnessTrackingApp.ServerApp.Models
         public Exercise(ExercisePost exercisePost)
         {
             Title = exercisePost.Title;
+            Category = exercisePost.Category;
             Description = exercisePost.Description;
-            ImageData = exercisePost.ImageData;
         }
     }
 }

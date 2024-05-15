@@ -25,15 +25,22 @@ namespace FitnessTrackingApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("Category")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<byte[]>("ImageData")
-                        .HasColumnType("longblob");
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<byte[]>("Version")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("longblob");
 
                     b.HasKey("Id");
 
@@ -64,6 +71,12 @@ namespace FitnessTrackingApp.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<byte[]>("Version")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("longblob");
+
                     b.Property<float>("Weight")
                         .HasColumnType("float");
 
@@ -90,6 +103,12 @@ namespace FitnessTrackingApp.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("char(36)");
 
+                    b.Property<byte[]>("Version")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("longblob");
+
                     b.Property<Guid>("WorkoutId")
                         .HasColumnType("char(36)");
 
@@ -110,6 +129,12 @@ namespace FitnessTrackingApp.Migrations
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<byte[]>("Version")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("longblob");
 
                     b.HasKey("Id");
 

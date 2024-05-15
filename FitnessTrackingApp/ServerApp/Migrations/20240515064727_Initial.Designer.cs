@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessTrackingApp.Migrations
 {
     [DbContext(typeof(WorkoutContext))]
-    [Migration("20240419124857_AddWorkout")]
-    partial class AddWorkout
+    [Migration("20240515064727_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,19 +23,26 @@ namespace FitnessTrackingApp.Migrations
 
             modelBuilder.Entity("FitnessTrackingApp.ServerApp.Models.Exercise", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
-                    b.Property<byte[]>("ImageData")
-                        .HasColumnType("longblob");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<byte[]>("Version")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("longblob");
 
                     b.HasKey("Id");
 
@@ -44,9 +51,9 @@ namespace FitnessTrackingApp.Migrations
 
             modelBuilder.Entity("FitnessTrackingApp.ServerApp.Models.User", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("char(36)");
 
                     b.Property<int>("GoalWeight")
                         .HasColumnType("int");
@@ -66,6 +73,12 @@ namespace FitnessTrackingApp.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<byte[]>("Version")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("longblob");
+
                     b.Property<float>("Weight")
                         .HasColumnType("float");
 
@@ -76,12 +89,12 @@ namespace FitnessTrackingApp.Migrations
 
             modelBuilder.Entity("FitnessTrackingApp.ServerApp.Models.UserExercise", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("char(36)");
 
-                    b.Property<long>("ExerciseId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid>("ExerciseId")
+                        .HasColumnType("char(36)");
 
                     b.Property<int>("MaxReps")
                         .HasColumnType("int");
@@ -89,11 +102,17 @@ namespace FitnessTrackingApp.Migrations
                     b.Property<double>("MaxWeight")
                         .HasColumnType("double");
 
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
 
-                    b.Property<long>("WorkoutId")
-                        .HasColumnType("bigint");
+                    b.Property<byte[]>("Version")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("longblob");
+
+                    b.Property<Guid>("WorkoutId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -106,12 +125,18 @@ namespace FitnessTrackingApp.Migrations
 
             modelBuilder.Entity("FitnessTrackingApp.ServerApp.Models.Workout", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<byte[]>("Version")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("longblob");
 
                     b.HasKey("Id");
 

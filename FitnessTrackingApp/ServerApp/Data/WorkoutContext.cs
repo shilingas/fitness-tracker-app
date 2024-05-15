@@ -21,6 +21,22 @@ namespace FitnessTrackingApp.ServerApp.DataContext
                 .HasOne(e => e.Workout)
                 .WithMany(w => w.UserExercises)
                 .HasForeignKey(e => e.WorkoutId);
+
+            modelBuilder.Entity<Exercise>()
+               .Property(p => p.Version)
+               .IsRowVersion();
+
+            modelBuilder.Entity<Workout>()
+               .Property(p => p.Version)
+               .IsRowVersion();
+
+            modelBuilder.Entity<User>()
+               .Property(p => p.Version)
+               .IsRowVersion();
+
+            modelBuilder.Entity<UserExercise>()
+               .Property(p => p.Version)
+               .IsRowVersion();
         }
     }
 }

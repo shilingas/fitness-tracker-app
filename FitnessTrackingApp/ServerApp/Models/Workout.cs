@@ -13,5 +13,8 @@ namespace FitnessTrackingApp.ServerApp.Models
         public DateTime Date { get; set; }
 
         public ICollection<UserExercise> UserExercises { get; set; }
+
+        [Timestamp]
+        public byte[] Version { get; set; }
     }
 }

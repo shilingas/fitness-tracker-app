@@ -29,5 +29,8 @@ namespace FitnessTrackingApp.ServerApp.Models
         public double MaxWeight { get; set; }
 
         public int MaxReps { get; set; }
+
+        [Timestamp]
+        public byte[] Version { get; set; }
     }
 }
