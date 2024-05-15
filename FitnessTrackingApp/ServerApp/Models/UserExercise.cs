@@ -23,7 +23,7 @@ namespace FitnessTrackingApp.ServerApp.Models
         [Required]
         public Guid UserId { get; set; }
 
-        [ForeignKey("WorkoutId")]
+        [ForeignKey("UserId")]
         public User User { get; set; }
 
         public double MaxWeight { get; set; }
