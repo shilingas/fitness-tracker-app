@@ -20,6 +20,7 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IExerciseService, ExerciseService>();
 builder.Services.AddScoped<IWorkoutExercise, WorkoutService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddDbContext<WorkoutContext>(options =>
 {
     options.UseMySQL(builder.Configuration.GetConnectionString("Host"));
