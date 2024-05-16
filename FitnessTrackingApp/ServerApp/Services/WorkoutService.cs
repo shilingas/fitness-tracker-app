@@ -7,7 +7,7 @@ using OpenQA.Selenium;
 
 namespace FitnessTrackingApp.ServerApp.Services
 {
-    public class WorkoutService : IWorkoutExercise
+    public class WorkoutService : IWorkoutService
     {
         private readonly WorkoutContext _context;
 
@@ -33,6 +33,30 @@ namespace FitnessTrackingApp.ServerApp.Services
             _context.Workouts.Add(workout);
             await _context.SaveChangesAsync();
             return workout;
+        }
+
+        public async Task<Workout> AddUserExercise(Guid workoutId, UserExerciseAddPost userExerciseAddPost)
+        {
+            var workout = await _context.Workouts.FirstOrDefaultAsync(w => w.Id == workoutId);
+            if (workout != null)
+            {
+                var userExercise = await _context.UserExercises.FirstOrDefaultAsync(u => u.Id == userExerciseAddPost.UserExerciseId);
+                if(userExercise != null)
+                {
+                    workout.UserExercises.Add(userExercise);
+                    _context.Workouts.Update(workout);
+                    await _context.SaveChangesAsync();
+                    return workout;
+                }
+                else
+                {
+                    throw new NotFoundException();
+                }
+            }
+            else
+            {
+                throw new NotFoundException();
+            }
         }
 
         public async Task DeleteWorkout(Guid id)

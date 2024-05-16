@@ -10,11 +10,11 @@ namespace FitnessTrackingApp.ServerApp.Controllers
     [Route("api/[controller]s")]
     [ApiController]
     [EnableCors("corsapp")]
-    public class UserExerciseController : ControllerBase
+    public class UserExcerciseController : ControllerBase
     {
         private readonly IUserExerciseService _userExerciseService;
 
-        public UserExerciseController(IUserExerciseService userExerciseService)
+        public UserExcerciseController(IUserExerciseService userExerciseService)
         {
             _userExerciseService = userExerciseService;
         }

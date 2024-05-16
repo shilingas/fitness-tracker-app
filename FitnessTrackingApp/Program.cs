@@ -19,7 +19,7 @@ builder.Services.AddSwaggerGen(options =>
 // Add controllers and other services
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IExerciseService, ExerciseService>();
-builder.Services.AddScoped<IWorkoutExercise, WorkoutService>();
+builder.Services.AddScoped<IWorkoutService, WorkoutService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserExerciseService, UserExerciseService>();
 builder.Services.AddDbContext<WorkoutContext>(options =>

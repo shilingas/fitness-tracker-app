@@ -27,6 +27,7 @@ namespace FitnessTrackingApp.ServerApp.Models
         public Workout(WorkoutPost workoutPost)
         {
             Name = workoutPost.Name;
+            UserExercises = new List<UserExercise>(); 
         }
     }
 }

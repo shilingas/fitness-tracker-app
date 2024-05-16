@@ -13,14 +13,8 @@ namespace FitnessTrackingApp.ServerApp.Models
         [Required]
         public Guid  ExerciseId { get; set; }
 
-        [ForeignKey("ExerciseId")]
-        public Exercise Exercise { get; set; }
-
         [Required]
         public Guid UserId { get; set; }
-
-        [ForeignKey("UserId")]
-        public User User { get; set; }
 
         [InverseProperty(nameof(Workout.UserExercises))]
         public ICollection<Workout> Workouts { get; set; }
@@ -43,6 +37,7 @@ namespace FitnessTrackingApp.ServerApp.Models
             UserId = userExercisePost.UserId;
             MaxWeight = userExercisePost.MaxWeight;
             MaxReps = userExercisePost.MaxReps;
+            Workouts  = new List<Workout>();
         }
     }
 }
