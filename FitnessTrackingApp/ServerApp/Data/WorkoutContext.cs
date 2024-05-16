@@ -17,11 +17,6 @@ namespace FitnessTrackingApp.ServerApp.DataContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserExercise>()
-                .HasOne(e => e.Workout)
-                .WithMany(w => w.UserExercises)
-                .HasForeignKey(e => e.WorkoutId);
-
             modelBuilder.Entity<Exercise>()
                .Property(p => p.Version)
                .IsConcurrencyToken();

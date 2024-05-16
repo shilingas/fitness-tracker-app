@@ -12,6 +12,7 @@ namespace FitnessTrackingApp.ServerApp.Models
         [Required]
         public DateTime Date { get; set; }
 
+        [InverseProperty(nameof(UserExercise.Workouts))]
         public ICollection<UserExercise> UserExercises { get; set; }
 
         [ConcurrencyCheck]

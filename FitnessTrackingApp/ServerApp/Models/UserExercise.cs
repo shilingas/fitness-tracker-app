@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FitnessTrackingApp.ServerApp.Other.Dto;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FitnessTrackingApp.ServerApp.Models
@@ -15,22 +16,33 @@ namespace FitnessTrackingApp.ServerApp.Models
         [ForeignKey("ExerciseId")]
         public Exercise Exercise { get; set; }
 
-        public Guid WorkoutId { get; set; }
-
-        [ForeignKey("WorkoutId")]
-        public Workout Workout { get; set; }
-
         [Required]
         public Guid UserId { get; set; }
 
         [ForeignKey("UserId")]
         public User User { get; set; }
 
-        public double MaxWeight { get; set; }
+        [InverseProperty(nameof(Workout.UserExercises))]
+        public ICollection<Workout> Workouts { get; set; }
 
-        public int MaxReps { get; set; }
+        public double? MaxWeight { get; set; }
+
+        public int? MaxReps { get; set; }
 
         [ConcurrencyCheck]
         public Guid Version { get; set; }
+
+        public UserExercise()
+        {
+            
+        }
+
+        public UserExercise(UserExercisePost userExercisePost)
+        {
+            ExerciseId = userExercisePost.ExerciseId;
+            UserId = userExercisePost.UserId;
+            MaxWeight = userExercisePost.MaxWeight;
+            MaxReps = userExercisePost.MaxReps;
+        }
     }
 }

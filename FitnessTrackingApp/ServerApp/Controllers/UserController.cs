@@ -64,7 +64,7 @@ namespace FitnessTrackingApp.ServerApp.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(Guid id,[FromBody] UserUpdate userUpdate)
+        public async Task<IActionResult> UpdateUser(Guid id,[FromBody] UserPut userUpdate)
         {
             try
             {

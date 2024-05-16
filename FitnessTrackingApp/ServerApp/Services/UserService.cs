@@ -35,7 +35,7 @@ namespace FitnessTrackingApp.ServerApp.Services
             return user;
         }
 
-        public async Task<User> UpdateUser(Guid id, UserUpdate userUpdate)
+        public async Task<User> UpdateUser(Guid id, UserPut userUpdate)
         {
             var existingUser = await _context.Users.FindAsync(id);
             if (existingUser == null)
@@ -65,7 +65,7 @@ namespace FitnessTrackingApp.ServerApp.Services
             }
             else
             {
-                //throw error
+                throw new NotFoundException();
             }
         }
     }

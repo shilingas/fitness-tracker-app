@@ -8,7 +8,7 @@ namespace FitnessTrackingApp.ServerApp.IServices
         Task<List<User>> GetAllUsers();
         Task<User?> GetUserById(Guid id);
         Task<User> CreateUser(UserPost userPost);
-        Task<User> UpdateUser(Guid id, UserUpdate userUpdate);
+        Task<User> UpdateUser(Guid id, UserPut userUpdate);
         Task DeleteUser(Guid id);
     }
 }
