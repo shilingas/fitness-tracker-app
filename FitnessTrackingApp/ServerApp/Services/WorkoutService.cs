@@ -25,10 +25,11 @@ namespace FitnessTrackingApp.ServerApp.Services
             return await _context.Workouts.FirstOrDefaultAsync(w => w.Id == id);
         }
 
-        /*
-        public async Task<Workout> CreateWorkout()
+        public async Task<Workout> CreateWorkout(WorkoutPost workoutPost)
         {
+            Workout workout = new Workout(workoutPost);
+            workout.Version = Guid.NewGuid();
         }
-        */
+        
     }
 }

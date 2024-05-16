@@ -30,6 +30,7 @@ namespace FitnessTrackingApp.ServerApp.Services
         {
             UserExercise userExercise = new UserExercise(userExercisePost);
             userExercise.Version = Guid.NewGuid();
+            _context.UserExercises.Add(userExercise);
             await _context.SaveChangesAsync();
             return userExercise;
         }
@@ -45,6 +46,7 @@ namespace FitnessTrackingApp.ServerApp.Services
             existingUserExercise.MaxWeight = userExercisePut.MaxWeight ?? existingUserExercise.MaxWeight;
             existingUserExercise.MaxReps = userExercisePut.MaxReps ?? existingUserExercise.MaxReps;
             existingUserExercise.Version = Guid.NewGuid();
+            _context.UserExercises.Update(existingUserExercise);
             await _context.SaveChangesAsync();
             return existingUserExercise;
         }

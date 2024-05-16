@@ -6,8 +6,6 @@ namespace FitnessTrackingApp.ServerApp.Models
 {
     public class User
     {
-        
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }

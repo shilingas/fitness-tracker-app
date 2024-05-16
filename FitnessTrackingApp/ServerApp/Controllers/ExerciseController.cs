@@ -52,7 +52,7 @@ namespace FitnessTrackingApp.ServerApp.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var createdExercise = await _exerciseService.AddExercise(exercisePost);
+                var createdExercise = await _exerciseService.CreateExercise(exercisePost);
                 return CreatedAtAction(nameof(GetExercise), new { id = createdExercise.Id }, createdExercise);
             }
             catch (Exception ex)
