@@ -3,6 +3,7 @@ using FitnessTrackingApp.ServerApp.IServices;
 using FitnessTrackingApp.ServerApp.Models;
 using FitnessTrackingApp.ServerApp.Other.Dto;
 using Microsoft.EntityFrameworkCore;
+using OpenQA.Selenium;
 
 namespace FitnessTrackingApp.ServerApp.Services
 {
@@ -29,7 +30,24 @@ namespace FitnessTrackingApp.ServerApp.Services
         {
             Workout workout = new Workout(workoutPost);
             workout.Version = Guid.NewGuid();
+            _context.Workouts.Add(workout);
+            await _context.SaveChangesAsync();
+            return workout;
         }
-        
+
+        public async Task DeleteWorkout(Guid id)
+        {
+            var workout = await _context.Workouts.FirstOrDefaultAsync(w => w.Id == id);
+            if(workout != null)
+            {
+                _context.Workouts.Remove(workout);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new NotFoundException();
+            }
+        }
+
     }
 }

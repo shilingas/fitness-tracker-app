@@ -50,6 +50,7 @@ namespace FitnessTrackingApp.ServerApp.Services
             existingUser.Weight = userUpdate.Weight ?? existingUser.Weight;
             existingUser.GoalWeight = userUpdate.GoalWeight ?? existingUser.GoalWeight;
             existingUser.Version = Guid.NewGuid();
+            _context.Users.Add(existingUser);
             await _context.SaveChangesAsync();
             return existingUser;
 
