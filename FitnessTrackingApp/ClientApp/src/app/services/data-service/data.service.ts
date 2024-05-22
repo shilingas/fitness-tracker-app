@@ -12,7 +12,9 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   createExercise(exercise: Exercise): Observable<Exercise> {
-    console.log('test');
     return this.http.post<Exercise>('https://localhost:7282/api/Exercise', exercise);
+  }
+  getAllExercises(): Observable<Exercise[]> {
+    return this.http.get<Exercise[]>('https://localhost:7282/api/Exercise');
   }
 }

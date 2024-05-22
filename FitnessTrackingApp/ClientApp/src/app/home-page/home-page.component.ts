@@ -8,6 +8,11 @@ import { TestModel } from '../models/TestModel';
   styleUrls: ['./home-page.component.css'],
 })
 export class HomePageComponent {
+  selectedIndex = 0;
+
+  onTabChange(index: number) {
+    this.selectedIndex = index;
+  }
   constructor() {
 
   }

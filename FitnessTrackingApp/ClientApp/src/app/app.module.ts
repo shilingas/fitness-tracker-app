@@ -16,11 +16,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
+import { WorkoutCreationFormComponent } from './workout-creation-form/workout-creation-form.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
-    ExerciseCreationFormComponent
+    ExerciseCreationFormComponent,
+    WorkoutCreationFormComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
