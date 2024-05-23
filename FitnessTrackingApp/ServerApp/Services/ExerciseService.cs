@@ -25,9 +25,10 @@ namespace FitnessTrackingApp.ServerApp.Services
             return await _context.Exercises.FirstOrDefaultAsync(ex => ex.Id == id);
         }
 
-        public async Task<Exercise> AddExercise(ExercisePost exercisePost)
+        public async Task<Exercise> CreateExercise(ExercisePost exercisePost)
         {
             Exercise exercise = new Exercise(exercisePost);
+            exercise.Version = Guid.NewGuid();
             _context.Exercises.Add(exercise);
             await _context.SaveChangesAsync();
             return exercise;
