@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FitnessTrackingApp.ServerApp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]s")]
     [ApiController]
     [EnableCors("corsapp")]
     public class ExerciseController : ControllerBase
@@ -17,7 +17,6 @@ namespace FitnessTrackingApp.ServerApp.Controllers
         {
             _exerciseService = exerciseService;
         }
-
         [HttpGet]
         public async Task<IActionResult> GetAllExercises()
         {
@@ -53,7 +52,7 @@ namespace FitnessTrackingApp.ServerApp.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var createdExercise = await _exerciseService.AddExercise(exercisePost);
+                var createdExercise = await _exerciseService.CreateExercise(exercisePost);
                 return CreatedAtAction(nameof(GetExercise), new { id = createdExercise.Id }, createdExercise);
             }
             catch (Exception ex)

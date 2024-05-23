@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessTrackingApp.Migrations
 {
     [DbContext(typeof(WorkoutContext))]
-    [Migration("20240419133545_ChangedIdsGUID")]
-    partial class ChangedIdsGUID
+    [Migration("20240516152735_UpdatedWorkout")]
+    partial class UpdatedWorkout
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,15 +27,20 @@ namespace FitnessTrackingApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("Category")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<byte[]>("ImageData")
-                        .HasColumnType("longblob");
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<Guid>("Version")
+                        .IsConcurrencyToken()
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -48,10 +53,10 @@ namespace FitnessTrackingApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<int>("GoalWeight")
+                    b.Property<int?>("GoalWeight")
                         .HasColumnType("int");
 
-                    b.Property<int>("Heigth")
+                    b.Property<int?>("Heigth")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -66,7 +71,11 @@ namespace FitnessTrackingApp.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<float>("Weight")
+                    b.Property<Guid>("Version")
+                        .IsConcurrencyToken()
+                        .HasColumnType("char(36)");
+
+                    b.Property<float?>("Weight")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
@@ -83,23 +92,24 @@ namespace FitnessTrackingApp.Migrations
                     b.Property<Guid>("ExerciseId")
                         .HasColumnType("char(36)");
 
-                    b.Property<int>("MaxReps")
+                    b.Property<int?>("MaxReps")
                         .HasColumnType("int");
 
-                    b.Property<double>("MaxWeight")
+                    b.Property<double?>("MaxWeight")
                         .HasColumnType("double");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("WorkoutId")
+                    b.Property<Guid>("Version")
+                        .IsConcurrencyToken()
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ExerciseId");
 
-                    b.HasIndex("WorkoutId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserExercises");
                 });
@@ -110,12 +120,32 @@ namespace FitnessTrackingApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid>("Version")
+                        .IsConcurrencyToken()
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Workouts");
+                });
+
+            modelBuilder.Entity("UserExerciseWorkout", b =>
+                {
+                    b.Property<Guid>("UserExercisesId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("WorkoutsId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("UserExercisesId", "WorkoutsId");
+
+                    b.HasIndex("WorkoutsId");
+
+                    b.ToTable("UserExerciseWorkout");
                 });
 
             modelBuilder.Entity("FitnessTrackingApp.ServerApp.Models.UserExercise", b =>
@@ -128,26 +158,28 @@ namespace FitnessTrackingApp.Migrations
 
                     b.HasOne("FitnessTrackingApp.ServerApp.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("WorkoutId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FitnessTrackingApp.ServerApp.Models.Workout", "Workout")
-                        .WithMany("UserExercises")
-                        .HasForeignKey("WorkoutId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Exercise");
 
                     b.Navigation("User");
-
-                    b.Navigation("Workout");
                 });
 
-            modelBuilder.Entity("FitnessTrackingApp.ServerApp.Models.Workout", b =>
+            modelBuilder.Entity("UserExerciseWorkout", b =>
                 {
-                    b.Navigation("UserExercises");
+                    b.HasOne("FitnessTrackingApp.ServerApp.Models.UserExercise", null)
+                        .WithMany()
+                        .HasForeignKey("UserExercisesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FitnessTrackingApp.ServerApp.Models.Workout", null)
+                        .WithMany()
+                        .HasForeignKey("WorkoutsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -1,11 +1,12 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using MySql.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
 namespace FitnessTrackingApp.Migrations
 {
-    public partial class ChangedIdsGUID : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,8 +19,10 @@ namespace FitnessTrackingApp.Migrations
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false),
                     Title = table.Column<string>(type: "longtext", nullable: false),
+                    Category = table.Column<string>(type: "longtext", nullable: false),
                     Description = table.Column<string>(type: "longtext", nullable: true),
-                    ImageData = table.Column<byte[]>(type: "longblob", nullable: true)
+                    Version = table.Column<byte[]>(type: "longblob", rowVersion: true, nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.ComputedColumn)
                 },
                 constraints: table =>
                 {
@@ -37,7 +40,9 @@ namespace FitnessTrackingApp.Migrations
                     PhoneNumber = table.Column<string>(type: "longtext", nullable: false),
                     Weight = table.Column<float>(type: "float", nullable: false),
                     Heigth = table.Column<int>(type: "int", nullable: false),
-                    GoalWeight = table.Column<int>(type: "int", nullable: false)
+                    GoalWeight = table.Column<int>(type: "int", nullable: false),
+                    Version = table.Column<byte[]>(type: "longblob", rowVersion: true, nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.ComputedColumn)
                 },
                 constraints: table =>
                 {
@@ -50,7 +55,9 @@ namespace FitnessTrackingApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Version = table.Column<byte[]>(type: "longblob", rowVersion: true, nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.ComputedColumn)
                 },
                 constraints: table =>
                 {
@@ -67,7 +74,9 @@ namespace FitnessTrackingApp.Migrations
                     WorkoutId = table.Column<Guid>(type: "char(36)", nullable: false),
                     UserId = table.Column<Guid>(type: "char(36)", nullable: false),
                     MaxWeight = table.Column<double>(type: "double", nullable: false),
-                    MaxReps = table.Column<int>(type: "int", nullable: false)
+                    MaxReps = table.Column<int>(type: "int", nullable: false),
+                    Version = table.Column<byte[]>(type: "longblob", rowVersion: true, nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.ComputedColumn)
                 },
                 constraints: table =>
                 {

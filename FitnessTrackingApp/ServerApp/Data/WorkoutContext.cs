@@ -17,10 +17,21 @@ namespace FitnessTrackingApp.ServerApp.DataContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Exercise>()
+               .Property(p => p.Version)
+               .IsConcurrencyToken();
+
+            modelBuilder.Entity<Workout>()
+               .Property(p => p.Version)
+               .IsConcurrencyToken();
+
+            modelBuilder.Entity<User>()
+               .Property(p => p.Version)
+               .IsConcurrencyToken();
+
             modelBuilder.Entity<UserExercise>()
-                .HasOne(e => e.Workout)
-                .WithMany(w => w.UserExercises)
-                .HasForeignKey(e => e.WorkoutId);
+               .Property(p => p.Version)
+               .IsConcurrencyToken();
         }
     }
 }
