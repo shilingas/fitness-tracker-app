@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessTrackingApp.Migrations
 {
     [DbContext(typeof(WorkoutContext))]
-    [Migration("20240516152735_UpdatedWorkout")]
-    partial class UpdatedWorkout
+    [Migration("20240524144211_UpdateUserExerciseWorkoutTable")]
+    partial class UpdateUserExerciseWorkoutTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -107,10 +107,6 @@ namespace FitnessTrackingApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ExerciseId");
-
-                    b.HasIndex("UserId");
-
                     b.ToTable("UserExercises");
                 });
 
@@ -146,25 +142,6 @@ namespace FitnessTrackingApp.Migrations
                     b.HasIndex("WorkoutsId");
 
                     b.ToTable("UserExerciseWorkout");
-                });
-
-            modelBuilder.Entity("FitnessTrackingApp.ServerApp.Models.UserExercise", b =>
-                {
-                    b.HasOne("FitnessTrackingApp.ServerApp.Models.Exercise", "Exercise")
-                        .WithMany()
-                        .HasForeignKey("ExerciseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FitnessTrackingApp.ServerApp.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Exercise");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("UserExerciseWorkout", b =>

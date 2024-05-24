@@ -10,5 +10,6 @@ namespace FitnessTrackingApp.ServerApp.IServices
         Task<Workout> CreateWorkout(WorkoutPost workoutPost);
         Task<Workout> AddUserExercise(Guid workoutId, UserExerciseAddPost userExerciseAddPost);
         Task DeleteWorkout(Guid id);
+        Task<IEnumerable<UserExerciseGet>> GetUserExercisesForWorkout(Guid workoutId);
     }
 }

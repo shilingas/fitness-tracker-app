@@ -95,5 +95,19 @@ namespace FitnessTrackingApp.ServerApp.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error while deleting the workout.");
             }
         }
+
+        [HttpGet("{workoutId}/user-exercises")]
+        public async Task<ActionResult<IEnumerable<UserExerciseDto>>> GetWorkoutUserExercises(Guid workoutId)
+        {
+            try
+            {
+                var userExercises = await _workoutService.GetUserExercisesForWorkout(workoutId);
+                return Ok(userExercises);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
     }
 }

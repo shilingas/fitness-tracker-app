@@ -4,7 +4,7 @@
 
 namespace FitnessTrackingApp.Migrations
 {
-    public partial class notRequiredWorkoutId : Migration
+    public partial class UpdateUserExerciseWorkoutTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

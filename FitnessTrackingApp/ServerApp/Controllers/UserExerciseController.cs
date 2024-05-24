@@ -95,5 +95,24 @@ namespace FitnessTrackingApp.ServerApp.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error while deleting the user exercise.");
             }
         }
+
+        [HttpPost("{userExerciseId}/workouts/{workoutId}")]
+        public async Task<IActionResult> AddUserExerciseToWorkout(Guid userExerciseId, Guid workoutId)
+        {
+            try
+            {
+                var updatedUserExercise = await _userExerciseService.AddUserExerciseToWorkout(userExerciseId, workoutId);
+                return Ok(updatedUserExercise);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error while adding the user exercise to the workout.");
+            }
+        }
     }
 }
