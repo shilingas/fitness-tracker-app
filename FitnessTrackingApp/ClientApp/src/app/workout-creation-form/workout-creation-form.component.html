@@ -1,1 +1,27 @@
-<p>workout-creation-form works!</p>
+<!-- workout-creation-form.component.html -->
+<div>
+  <!-- Form for selecting exercise -->
+  <div [formGroup]="formGroup">
+    <mat-form-field>
+      <mat-label>Select Exercise</mat-label>
+      <mat-select formControlName="exerciseName">
+        <mat-option *ngFor="let exercise of exercises" [value]="exercise.title">{{ exercise.title }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" placeholder="Maximum Weight" formControlName="maxWeight">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" placeholder="Maximum Repetitions" formControlName="maxReps">
+    </mat-form-field>
+    <button mat-raised-button color="accent" (click)="handleSubmit()">Submit</button>
+  </div>
+
+  <!-- Form for entering workout name -->
+  <form (ngSubmit)="handleWorkoutNameSubmit(workoutName.value)" #workoutNameForm="ngForm">
+    <mat-form-field>
+      <input matInput type="text" name="workoutName" #workoutName ngModel placeholder="Enter Workout Name" required>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Create Workout</button>
+  </form>
+</div>

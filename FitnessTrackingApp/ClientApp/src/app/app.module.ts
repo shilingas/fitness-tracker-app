@@ -20,6 +20,7 @@ import { WorkoutCreationFormComponent } from './workout-creation-form/workout-cr
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { RegistrationComponent } from './registration/registration.component';
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +48,7 @@ import { RegistrationComponent } from './registration/registration.component';
     MatSnackBarModule,
     MatTableModule,
     MatInputModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

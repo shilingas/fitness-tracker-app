@@ -26,7 +26,7 @@ export class RegistrationComponent {
   constructor(
     private router: Router,
     private dataService: DataService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) { }
 
   onSubmit() {
@@ -42,6 +42,7 @@ export class RegistrationComponent {
         height: this.formData.height,
         goalWeight: this.formData.goalWeight,
       };
+      this.dataService.setUserName(this.loginName); // Save the username
       this.dataService.createUser(user).subscribe((x: User) => {
         this.snackBar.open('Registration successful', 'Close', { duration: 3000 });
         console.log('created user');
@@ -52,6 +53,7 @@ export class RegistrationComponent {
 
   onLogin() {
     const existingUser = this.users.find(user => user.name === this.loginName);
+    this.dataService.setUserName(this.loginName);
     if (existingUser) {
       this.snackBar.open('Login successful', 'Close', { duration: 3000 });
       this.router.navigate(['/home']);
@@ -64,5 +66,7 @@ export class RegistrationComponent {
     this.dataService.getAllUsers().subscribe((x: User[]) => {
       this.users = x;
     });
+    // Load the saved loginName from the data service
+    this.loginName = this.dataService.getUserName();
   }
 }
