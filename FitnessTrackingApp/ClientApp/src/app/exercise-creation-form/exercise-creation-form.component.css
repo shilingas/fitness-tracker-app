@@ -1,6 +1,67 @@
-.exercise-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Prevents body overflow */
 }
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  overflow: auto; /* Allows for internal scrolling if content overflows */
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.exercise-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 800px; /* Limit the maximum width */
+  box-sizing: border-box;
+}
+
+.form-title {
+  font-family: 'Roboto', sans-serif;
+  color: #6a1b9a; /* Purple color */
+  margin-bottom: 20px;
+}
+
+.table-title {
+  font-family: 'Roboto', sans-serif;
+  color: #6a1b9a; /* Purple color */
+  margin: 40px 0 20px 0; /* Top margin creates space between button and table title */
+}
+
+.exercise-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+button {
+  margin-top: 20px;
+  align-self: center; /* Center the button horizontally */
+}
+

@@ -43,6 +43,7 @@ namespace FitnessTrackingApp.ServerApp.Controllers
         }
 
         [HttpPost]
+        [EnableCors("corsapp")]
         public async Task<IActionResult> AddExercise([FromBody] ExercisePost exercisePost)
         {
             try

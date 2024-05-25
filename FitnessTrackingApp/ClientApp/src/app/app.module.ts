@@ -17,6 +17,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { WorkoutCreationFormComponent } from './workout-creation-form/workout-creation-form.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +40,9 @@ import { WorkoutCreationFormComponent } from './workout-creation-form/workout-cr
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSnackBarModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [HomePageComponent]
