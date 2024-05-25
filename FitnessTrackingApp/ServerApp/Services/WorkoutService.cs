@@ -95,5 +95,12 @@ namespace FitnessTrackingApp.ServerApp.Services
             return userExercises;
         }
 
+        public async Task<List<Workout>> GetWorkoutsByUserId(Guid userId)
+        {
+            return await _context.Workouts
+                                 .Where(w => w.UserId == userId)
+                                 .ToListAsync();
+        }
+
     }
 }
