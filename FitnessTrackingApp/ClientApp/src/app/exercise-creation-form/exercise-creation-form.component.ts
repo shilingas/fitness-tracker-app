@@ -44,7 +44,7 @@ export class ExerciseCreationFormComponent implements OnInit {
       this.snackBar.open('Exercise created successfully!', 'Close', {
         duration: 2000,
       });
-      this.loadExercises(); // Reload the exercises after successful creation
+      this.loadExercises(); 
     }, error => {
       console.error('Error creating exercise', error);
       this.snackBar.open('Failed to create exercise', 'Close', {

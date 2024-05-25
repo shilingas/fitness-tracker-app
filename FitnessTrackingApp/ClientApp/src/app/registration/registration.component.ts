@@ -17,8 +17,7 @@ export class RegistrationComponent {
     goalWeight: 0
   };
 
-  loginName: string = ''; // Declare loginName property here
-
+  loginName: string = '';
   constructor(private router: Router) { }
 
   onSubmit() {

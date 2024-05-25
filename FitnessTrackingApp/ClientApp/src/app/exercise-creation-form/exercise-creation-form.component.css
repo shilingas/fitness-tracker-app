@@ -15,7 +15,7 @@ body, html {
   align-items: center;
   height: 100vh;
   width: 100%;
-  overflow: auto; /* Allows for internal scrolling if content overflows */
+  overflow: auto; 
   box-sizing: border-box;
   padding: 20px;
 }
@@ -27,20 +27,20 @@ body, html {
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-  max-width: 800px; /* Limit the maximum width */
+  max-width: 800px;
   box-sizing: border-box;
 }
 
 .form-title {
   font-family: 'Roboto', sans-serif;
-  color: #6a1b9a; /* Purple color */
+  color: #6a1b9a; 
   margin-bottom: 20px;
 }
 
 .table-title {
   font-family: 'Roboto', sans-serif;
-  color: #6a1b9a; /* Purple color */
-  margin: 40px 0 20px 0; /* Top margin creates space between button and table title */
+  color: #6a1b9a; 
+  margin: 40px 0 20px 0;
 }
 
 .exercise-form {
@@ -62,6 +62,6 @@ table {
 
 button {
   margin-top: 20px;
-  align-self: center; /* Center the button horizontally */
+  align-self: center;
 }
 
