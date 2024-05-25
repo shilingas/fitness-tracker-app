@@ -42,5 +42,10 @@ namespace FitnessTrackingApp.ServerApp.Decorators
         {
             return _decoratedService.GetWorkoutById(id);
         }
+
+        public virtual Task<List<Workout>> GetWorkoutsByUserId(Guid userId)
+        {
+            return _decoratedService.GetWorkoutsByUserId(userId);
+        }
     }
 }
