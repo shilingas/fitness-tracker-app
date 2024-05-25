@@ -11,6 +11,9 @@ namespace FitnessTrackingApp.ServerApp.Models
         public Guid Id { get; set; }
 
         [Required]
+        public Guid UserId { get; set; }
+
+        [Required]
         public string Name { get; set; }
 
         [InverseProperty(nameof(UserExercise.Workouts))]
@@ -27,6 +30,7 @@ namespace FitnessTrackingApp.ServerApp.Models
         public Workout(WorkoutPost workoutPost)
         {
             Name = workoutPost.Name;
+            UserId = workoutPost.UserId;
             UserExercises = new List<UserExercise>(); 
         }
     }
