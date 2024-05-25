@@ -1,4 +1,5 @@
 ﻿using FitnessTrackingApp.ServerApp.IServices;
+using FitnessTrackingApp.ServerApp.Models;
 using FitnessTrackingApp.ServerApp.Other.Dto;
 using FitnessTrackingApp.ServerApp.Services;
 using Microsoft.AspNetCore.Cors;
@@ -107,6 +108,24 @@ namespace FitnessTrackingApp.ServerApp.Controllers
             catch (KeyNotFoundException ex)
             {
                 return NotFound(ex.Message);
+            }
+        }
+
+        [HttpGet("{userId}/user-workouts")]
+        public async Task<ActionResult<List<Workout>>> GetWorkoutsByUserId(Guid userId)
+        {
+            try
+            {
+                var workouts = await _workoutService.GetWorkoutsByUserId(userId);
+                if (workouts == null || workouts.Count == 0)
+                {
+                    return NotFound();
+                }
+                return Ok(workouts);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
     }
