@@ -1,12 +1,11 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using MySql.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
 namespace FitnessTrackingApp.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,12 +20,28 @@ namespace FitnessTrackingApp.Migrations
                     Title = table.Column<string>(type: "longtext", nullable: false),
                     Category = table.Column<string>(type: "longtext", nullable: false),
                     Description = table.Column<string>(type: "longtext", nullable: true),
-                    Version = table.Column<byte[]>(type: "longblob", rowVersion: true, nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.ComputedColumn)
+                    Version = table.Column<Guid>(type: "char(36)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Exercises", x => x.Id);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "UserExercises",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false),
+                    ExerciseId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    UserId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    MaxWeight = table.Column<double>(type: "double", nullable: true),
+                    MaxReps = table.Column<int>(type: "int", nullable: true),
+                    Version = table.Column<Guid>(type: "char(36)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserExercises", x => x.Id);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -38,11 +53,10 @@ namespace FitnessTrackingApp.Migrations
                     Name = table.Column<string>(type: "longtext", nullable: false),
                     Surname = table.Column<string>(type: "longtext", nullable: false),
                     PhoneNumber = table.Column<string>(type: "longtext", nullable: false),
-                    Weight = table.Column<float>(type: "float", nullable: false),
-                    Heigth = table.Column<int>(type: "int", nullable: false),
-                    GoalWeight = table.Column<int>(type: "int", nullable: false),
-                    Version = table.Column<byte[]>(type: "longblob", rowVersion: true, nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.ComputedColumn)
+                    Weight = table.Column<float>(type: "float", nullable: true),
+                    Heigth = table.Column<int>(type: "int", nullable: true),
+                    GoalWeight = table.Column<int>(type: "int", nullable: true),
+                    Version = table.Column<Guid>(type: "char(36)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -55,9 +69,8 @@ namespace FitnessTrackingApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Version = table.Column<byte[]>(type: "longblob", rowVersion: true, nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.ComputedColumn)
+                    Name = table.Column<string>(type: "longtext", nullable: false),
+                    Version = table.Column<Guid>(type: "char(36)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -66,36 +79,24 @@ namespace FitnessTrackingApp.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "UserExercises",
+                name: "UserExerciseWorkout",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false),
-                    ExerciseId = table.Column<Guid>(type: "char(36)", nullable: false),
-                    WorkoutId = table.Column<Guid>(type: "char(36)", nullable: false),
-                    UserId = table.Column<Guid>(type: "char(36)", nullable: false),
-                    MaxWeight = table.Column<double>(type: "double", nullable: false),
-                    MaxReps = table.Column<int>(type: "int", nullable: false),
-                    Version = table.Column<byte[]>(type: "longblob", rowVersion: true, nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.ComputedColumn)
+                    UserExercisesId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    WorkoutsId = table.Column<Guid>(type: "char(36)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserExercises", x => x.Id);
+                    table.PrimaryKey("PK_UserExerciseWorkout", x => new { x.UserExercisesId, x.WorkoutsId });
                     table.ForeignKey(
-                        name: "FK_UserExercises_Exercises_ExerciseId",
-                        column: x => x.ExerciseId,
-                        principalTable: "Exercises",
+                        name: "FK_UserExerciseWorkout_UserExercises_UserExercisesId",
+                        column: x => x.UserExercisesId,
+                        principalTable: "UserExercises",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserExercises_Users_WorkoutId",
-                        column: x => x.WorkoutId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserExercises_Workouts_WorkoutId",
-                        column: x => x.WorkoutId,
+                        name: "FK_UserExerciseWorkout_Workouts_WorkoutsId",
+                        column: x => x.WorkoutsId,
                         principalTable: "Workouts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -103,26 +104,24 @@ namespace FitnessTrackingApp.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserExercises_ExerciseId",
-                table: "UserExercises",
-                column: "ExerciseId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserExercises_WorkoutId",
-                table: "UserExercises",
-                column: "WorkoutId");
+                name: "IX_UserExerciseWorkout_WorkoutsId",
+                table: "UserExerciseWorkout",
+                column: "WorkoutsId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "UserExercises");
-
-            migrationBuilder.DropTable(
                 name: "Exercises");
 
             migrationBuilder.DropTable(
+                name: "UserExerciseWorkout");
+
+            migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "UserExercises");
 
             migrationBuilder.DropTable(
                 name: "Workouts");

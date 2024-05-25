@@ -65,5 +65,35 @@ namespace FitnessTrackingApp.ServerApp.Services
             }
 
         }
+
+        public async Task<UserExerciseDto> AddUserExerciseToWorkout(Guid userExerciseId, Guid workoutId)
+        {
+            var userExercise = await _context.UserExercises
+                                             .Include(ue => ue.Workouts)
+                                             .FirstOrDefaultAsync(ue => ue.Id == userExerciseId);
+            if (userExercise == null)
+            {
+                throw new KeyNotFoundException("UserExercise not found.");
+            }
+
+            var workout = await _context.Workouts.FindAsync(workoutId);
+            if (workout == null)
+            {
+                throw new KeyNotFoundException("Workout not found.");
+            }
+
+            userExercise.Workouts.Add(workout);
+            await _context.SaveChangesAsync();
+
+            var dto = new UserExerciseDto
+            {
+                Id = userExercise.Id,
+                ExerciseId = userExercise.ExerciseId,
+                UserId = userExercise.UserId,
+                WorkoutIds = userExercise.Workouts.Select(w => w.Id).ToList()
+            };
+
+            return dto;
+        }
     }
 }

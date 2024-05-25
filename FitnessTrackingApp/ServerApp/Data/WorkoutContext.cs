@@ -32,6 +32,10 @@ namespace FitnessTrackingApp.ServerApp.DataContext
             modelBuilder.Entity<UserExercise>()
                .Property(p => p.Version)
                .IsConcurrencyToken();
+
+            modelBuilder.Entity<UserExercise>()
+            .HasMany(ue => ue.Workouts)
+            .WithMany(w => w.UserExercises);
         }
     }
 }

@@ -72,6 +72,28 @@ namespace FitnessTrackingApp.ServerApp.Services
                 throw new NotFoundException();
             }
         }
+        public async Task<IEnumerable<UserExerciseGet>> GetUserExercisesForWorkout(Guid workoutId)
+        {
+            var workout = await _context.Workouts
+                                        .Include(w => w.UserExercises)
+                                        .FirstOrDefaultAsync(w => w.Id == workoutId);
+
+            if (workout == null)
+            {
+                throw new KeyNotFoundException("Workout not found.");
+            }
+
+            var userExercises = workout.UserExercises.Select(ue => new UserExerciseGet
+            {
+                Id = ue.Id,
+                ExerciseId = ue.ExerciseId,
+                UserId = ue.UserId,
+                MaxWeight = ue.MaxWeight,
+                MaxReps = ue.MaxReps,
+            }).ToList();
+
+            return userExercises;
+        }
 
     }
 }

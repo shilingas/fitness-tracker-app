@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessTrackingApp.Migrations
 {
     [DbContext(typeof(WorkoutContext))]
-    [Migration("20240516142651_notRequiredWorkoutId")]
-    partial class notRequiredWorkoutId
+    [Migration("20240524142900_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -92,10 +92,10 @@ namespace FitnessTrackingApp.Migrations
                     b.Property<Guid>("ExerciseId")
                         .HasColumnType("char(36)");
 
-                    b.Property<int>("MaxReps")
+                    b.Property<int?>("MaxReps")
                         .HasColumnType("int");
 
-                    b.Property<double>("MaxWeight")
+                    b.Property<double?>("MaxWeight")
                         .HasColumnType("double");
 
                     b.Property<Guid>("UserId")
@@ -107,10 +107,6 @@ namespace FitnessTrackingApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ExerciseId");
-
-                    b.HasIndex("UserId");
-
                     b.ToTable("UserExercises");
                 });
 
@@ -120,8 +116,9 @@ namespace FitnessTrackingApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<Guid>("Version")
                         .IsConcurrencyToken()
@@ -145,25 +142,6 @@ namespace FitnessTrackingApp.Migrations
                     b.HasIndex("WorkoutsId");
 
                     b.ToTable("UserExerciseWorkout");
-                });
-
-            modelBuilder.Entity("FitnessTrackingApp.ServerApp.Models.UserExercise", b =>
-                {
-                    b.HasOne("FitnessTrackingApp.ServerApp.Models.Exercise", "Exercise")
-                        .WithMany()
-                        .HasForeignKey("ExerciseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FitnessTrackingApp.ServerApp.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Exercise");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("UserExerciseWorkout", b =>
