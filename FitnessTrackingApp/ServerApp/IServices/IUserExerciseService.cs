@@ -11,5 +11,6 @@ namespace FitnessTrackingApp.ServerApp.IServices
         Task<UserExercise> UpdateUserExercise(Guid id, UserExercisePut userExercisePut);
         Task DeleteUserExercise(Guid id);
         Task<UserExerciseDto> AddUserExerciseToWorkout(Guid userExerciseId, Guid workoutId);
+        Task<List<UserExerciseDto>> AddAndCreateUserExercises(List<UserExercisePost> userExercisesPost, Guid workoutId);
     }
 }
