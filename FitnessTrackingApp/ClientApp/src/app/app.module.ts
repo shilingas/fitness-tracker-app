@@ -19,19 +19,22 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { WorkoutCreationFormComponent } from './workout-creation-form/workout-creation-form.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
+import { RegistrationComponent } from './registration/registration.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
     ExerciseCreationFormComponent,
-    WorkoutCreationFormComponent
+    WorkoutCreationFormComponent,
+    RegistrationComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomePageComponent, pathMatch: 'full' },
+      { path: '', component: RegistrationComponent },
+      { path: 'home', component: HomePageComponent },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
     ]),
@@ -42,9 +45,10 @@ import { MatTableModule } from '@angular/material/table';
     MatButtonModule,
     ReactiveFormsModule,
     MatSnackBarModule,
-    MatTableModule
+    MatTableModule,
+    MatInputModule,
   ],
   providers: [],
-  bootstrap: [HomePageComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
