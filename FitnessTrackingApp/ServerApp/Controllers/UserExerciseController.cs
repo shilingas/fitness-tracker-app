@@ -114,5 +114,29 @@ namespace FitnessTrackingApp.ServerApp.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error while adding the user exercise to the workout.");
             }
         }
+
+        [HttpPost("add-multiple-to-workout/{workoutId}")]
+        public async Task<IActionResult> AddAndCreateUserExercisesToWorkout([FromBody] List<UserExercisePost> userExercisePosts, Guid workoutId)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var createdUserExercises = await _userExerciseService.AddAndCreateUserExercises(userExercisePosts, workoutId);
+                return Ok(createdUserExercises);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error while adding and creating user exercises to the workout.");
+            }
+        }
+
     }
 }
