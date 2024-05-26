@@ -1,7 +1,4 @@
-<div *ngIf="isLoading; else content">
-  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-</div>
-<ng-template #content>
+
   <div>
     <!-- Input form for creating workouts -->
     <form [formGroup]="formGroup" (ngSubmit)="handleWorkoutNameSubmit()">
@@ -52,4 +49,3 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </div>
-</ng-template>
