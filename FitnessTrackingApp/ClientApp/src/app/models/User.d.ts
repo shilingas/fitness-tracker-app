@@ -3,6 +3,6 @@ export interface User {
   surname: string;
   phoneNumber: string;
   weight: number;
-  height: number;
+  heigth: number;
   goalWeight: number;
 }

@@ -39,10 +39,11 @@ export class RegistrationComponent {
         surname: this.formData.surname,
         phoneNumber: this.formData.phoneNumber,
         weight: this.formData.weight,
-        height: this.formData.height,
+        heigth: this.formData.heigth,
         goalWeight: this.formData.goalWeight,
       };
-      this.dataService.setUserName(this.loginName); // Save the username
+      console.log(user);
+      this.dataService.setUserName(user.name); // Save the username
       this.dataService.createUser(user).subscribe((x: User) => {
         this.snackBar.open('Registration successful', 'Close', { duration: 3000 });
         console.log('created user');
