@@ -12,5 +12,6 @@ namespace FitnessTrackingApp.ServerApp.IServices
         Task DeleteWorkout(Guid id);
         Task<IEnumerable<UserExerciseGet>> GetUserExercisesForWorkout(Guid workoutId);
         Task<List<Workout>> GetWorkoutsByUserId(Guid userId);
+        Task<Workout?> UpdateWorkout(Guid id, WorkoutUpdate workoutUpdate);
     }
 }

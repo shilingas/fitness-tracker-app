@@ -128,5 +128,29 @@ namespace FitnessTrackingApp.ServerApp.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateWorkout(Guid id, [FromBody] WorkoutUpdate workoutUpdate)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var updatedWorkout = await _workoutService.UpdateWorkout(id, workoutUpdate);
+                if (updatedWorkout == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(updatedWorkout);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error while updating the workout.");
+            }
+        }
     }
 }
