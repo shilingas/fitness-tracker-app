@@ -16,24 +16,9 @@ export class WorkoutCreationFormComponent implements OnInit {
   currentWorkouts: CreateWorkout[] = [];
   userId!: string;
   displayedColumns: string[] = ['name', 'actions'];
-
-  constructor(private formBuilder: FormBuilder, private dataService: DataService) { }
-
-
   editingWorkoutId: string | null = null;
 
-  enableEdit(workoutId: string) {
-    this.editingWorkoutId = workoutId;
-  }
-
-  updateWorkoutName(workout: CreateWorkout) {
-    console.log(workout);
-  }
-  cancelEdit() {
-    this.editingWorkoutId = null;
-  }
-
-
+  constructor(private formBuilder: FormBuilder, private dataService: DataService) { }
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
@@ -41,31 +26,48 @@ export class WorkoutCreationFormComponent implements OnInit {
     });
 
     this.dataService.getUserIdByUsername(this.dataService.getUserName()).subscribe((x: any) => {
-      this.userId = x.id;
-      console.log(this.userId);
-
-      this.dataService.getWorkoutsByUserId(this.userId).subscribe((workouts: CreateWorkout[]) => {
-        this.currentWorkouts = workouts;
-        console.log(this.currentWorkouts);
-      });
+      this.userId = x?.id;
+      if (this.userId) {
+        this.loadWorkouts();
+      }
     });
 
     this.dataService.getAllExercises().subscribe((exercises: Exercise[]) => {
       this.exercises = exercises;
       console.log(this.exercises);
     });
-
-
-
   }
-  handleDelete(id: string) {
-    this.dataService.deleteWorkout(id).subscribe((x: any) => {
-      console.log('deleted');
-      this.dataService.getWorkoutsByUserId(this.userId).subscribe((workouts: CreateWorkout[]) => {
-        this.currentWorkouts = workouts;
-        console.log(this.currentWorkouts);
+
+  loadWorkouts() {
+    this.dataService.getWorkoutsByUserId(this.userId).subscribe((workouts: CreateWorkout[]) => {
+      this.currentWorkouts = workouts;
+      console.log(this.currentWorkouts);
+    });
+  }
+
+  enableEdit(workoutId: string) {
+    this.editingWorkoutId = workoutId;
+  }
+
+  updateWorkoutName(workout: CreateWorkout) {
+    if (this.editingWorkoutId && workout.name) {
+      this.dataService.updateWorkout(this.editingWorkoutId, workout).subscribe((updatedWorkout: CreateWorkout) => {
+        console.log('Workout updated:', updatedWorkout);
+        this.loadWorkouts();
+        this.cancelEdit();
       });
-    })
+    }
+  }
+
+  cancelEdit() {
+    this.editingWorkoutId = null;
+  }
+
+  handleDelete(id: string) {
+    this.dataService.deleteWorkout(id).subscribe(() => {
+      console.log('Workout deleted');
+      this.loadWorkouts();
+    });
   }
 
   handleWorkoutNameSubmit() {
@@ -75,13 +77,8 @@ export class WorkoutCreationFormComponent implements OnInit {
     };
 
     this.dataService.createWorkout(workout).subscribe((x: CreateWorkout) => {
-      console.log('created');
-      this.dataService.getWorkoutsByUserId(this.userId).subscribe((workouts: CreateWorkout[]) => {
-        this.currentWorkouts = workouts;
-        console.log(this.currentWorkouts);
-      });
+      console.log('Workout created:', x);
+      this.loadWorkouts();
     });
   }
-
-
 }

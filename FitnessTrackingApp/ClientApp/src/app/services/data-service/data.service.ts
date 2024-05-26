@@ -72,4 +72,8 @@ export class DataService {
   updateExercise(id: string, updatedExercise: Exercise): Observable<Exercise> {
     return this.http.put<Exercise>(`https://localhost:7282/api/Exercises/${id}`, updatedExercise);
   }
+  updateWorkout(id: string, updatedWorkout: CreateWorkout): Observable<CreateWorkout> {
+    return this.http.put<CreateWorkout>(`https://localhost:7282/api/Workouts/${id}`, updatedWorkout);
+  }
+
 }
