@@ -58,7 +58,15 @@ export class WorkoutCreationFormComponent implements OnInit {
 
 
   }
-
+  handleDelete(id: string) {
+    this.dataService.deleteWorkout(id).subscribe((x: any) => {
+      console.log('deleted');
+      this.dataService.getWorkoutsByUserId(this.userId).subscribe((workouts: CreateWorkout[]) => {
+        this.currentWorkouts = workouts;
+        console.log(this.currentWorkouts);
+      });
+    })
+  }
 
   handleWorkoutNameSubmit() {
     const workout: CreateWorkout = {

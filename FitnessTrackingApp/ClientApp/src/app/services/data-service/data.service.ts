@@ -65,4 +65,8 @@ export class DataService {
   getExerciseById(exerciseId: string): Observable<Exercise> {
     return this.http.get<Exercise>(`https://localhost:7282/api/Exercises/${exerciseId}`)
   }
+
+  deleteWorkout(workoutId: string): Observable<any> {
+    return this.http.delete(`https://localhost:7282/api/Workouts/${workoutId}`);
+  }
 }
