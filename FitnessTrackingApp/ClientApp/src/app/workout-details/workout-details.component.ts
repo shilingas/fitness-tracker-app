@@ -20,6 +20,7 @@ export class WorkoutDetailsComponent implements OnInit {
   exerciseDetails: { name: string; maxReps: number; maxWeight: number; }[] = [];
   currentExercises!: UserExercise[];
   displayedColumns: string[] = ['name', 'maxReps', 'maxWeight'];
+  isLoading: boolean = true; // Variable to track loading state
   constructor(private formBuilder: FormBuilder, private dataService: DataService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -97,6 +98,7 @@ export class WorkoutDetailsComponent implements OnInit {
           maxWeight: this.currentExercises[index].maxWeight
         }));
         console.log('exercise details', this.exerciseDetails);
+        this.isLoading = false;
       });
     });
   }

@@ -1,5 +1,11 @@
 <mat-tab-group [selectedIndex]="selectedIndex" (selectedIndexChange)="onTabChange($event)" mat-stretch-tabs="false" mat-align-tabs="start">
-  <mat-tab label="Home page">Home page</mat-tab>
+  <mat-tab label="Profile">
+    <ng-container *ngIf="selectedIndex === 0">
+      <div *ngIf="user" class="user-card-container">
+        <app-main-component></app-main-component>
+      </div>
+    </ng-container>
+  </mat-tab>
   <mat-tab label="Exercises">
     <ng-container *ngIf="selectedIndex === 1">
       <app-exercise-creation-form></app-exercise-creation-form>

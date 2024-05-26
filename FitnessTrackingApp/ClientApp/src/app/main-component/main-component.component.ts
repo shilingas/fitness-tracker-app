@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../services/data-service/data.service';
-import { TestModel } from '../models/TestModel';
-import { User } from '../models/User';
 import { Router } from '@angular/router';
 import { CreateWorkout } from '../models/CreateWorkout';
+import { User } from '../models/User';
+import { DataService } from '../services/data-service/data.service';
 
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.css'],
+  selector: 'app-main-component',
+  templateUrl: './main-component.component.html',
+  styleUrls: ['./main-component.component.css']
 })
-export class HomePageComponent {
+export class MainComponentComponent implements OnInit {
   selectedIndex = 0;
   user!: User;
   currentUserId!: string;
@@ -28,10 +27,13 @@ export class HomePageComponent {
       console.log(x);
       this.user = x;
       this.currentUserId = x.id;
+      this.isLoading = false;
       this.dataService.getWorkoutsByUserId(this.currentUserId).subscribe((x: CreateWorkout[]) => {
         this.numberOfWorkouts = x.length;
-        this.message = this.numberOfWorkouts <= 1 ? `You have ${this.numberOfWorkouts} workout` : `You have ${this.numberOfWorkouts} workouts`
+        this.message = x.length <= 1 ? `You have ${this.numberOfWorkouts} workout` : `You have ${this.numberOfWorkouts} workouts`
+        this.isLoading = false;
       })
+      console.log('test');
     })
   }
 

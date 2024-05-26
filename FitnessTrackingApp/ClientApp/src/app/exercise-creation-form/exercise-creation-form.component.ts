@@ -15,7 +15,7 @@ export class ExerciseCreationFormComponent implements OnInit {
   exercises: Exercise[] = [];
   editedExercise: Exercise | null = null;
   editedExerciseId: string | null = null;
-
+  isLoading: boolean = true; // Variable to track loading state
   constructor(private dataService: DataService, private snackBar: MatSnackBar) {
     this.formGroup = new FormGroup({
       title: new FormControl(''),
@@ -31,6 +31,7 @@ export class ExerciseCreationFormComponent implements OnInit {
   loadExercises(): void {
     this.dataService.getAllExercises().subscribe((exercises: Exercise[]) => {
       this.exercises = exercises;
+      this.isLoading = false;
     });
   }
 

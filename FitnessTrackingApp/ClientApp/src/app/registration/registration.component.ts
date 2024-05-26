@@ -1,5 +1,4 @@
-// registration.component.ts
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../models/User';
 import { DataService } from '../services/data-service/data.service';
@@ -10,7 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css']
 })
-export class RegistrationComponent {
+export class RegistrationComponent implements OnInit {
   users: User[] = [];
   formData: any = {
     name: '',
@@ -47,6 +46,7 @@ export class RegistrationComponent {
       this.dataService.createUser(user).subscribe((x: User) => {
         this.snackBar.open('Registration successful', 'Close', { duration: 3000 });
         console.log('created user');
+        this.resetFormData();
         this.router.navigate(['/home']);
       });
     }
@@ -57,6 +57,7 @@ export class RegistrationComponent {
     this.dataService.setUserName(this.loginName);
     if (existingUser) {
       this.snackBar.open('Login successful', 'Close', { duration: 3000 });
+      this.loginName = ''; // Clear the loginName field after successful login
       this.router.navigate(['/home']);
     } else {
       this.snackBar.open('Account does not exist', 'Close', { duration: 3000 });
@@ -69,5 +70,17 @@ export class RegistrationComponent {
     });
     // Load the saved loginName from the data service
     this.loginName = this.dataService.getUserName();
+    this.loginName = '';
+  }
+
+  resetFormData() {
+    this.formData = {
+      name: '',
+      surname: '',
+      phoneNumber: '',
+      weight: 0,
+      height: 0,
+      goalWeight: 0
+    };
   }
 }

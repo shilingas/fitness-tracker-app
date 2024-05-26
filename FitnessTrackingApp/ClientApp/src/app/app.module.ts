@@ -22,8 +22,10 @@ import { MatTableModule } from '@angular/material/table';
 import { RegistrationComponent } from './registration/registration.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
-
+import { MatCardModule } from '@angular/material/card';
 import { WorkoutDetailsComponent } from './workout-details/workout-details.component';
+import { MainComponentComponent } from './main-component/main-component.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +33,8 @@ import { WorkoutDetailsComponent } from './workout-details/workout-details.compo
     ExerciseCreationFormComponent,
     WorkoutCreationFormComponent,
     RegistrationComponent,
-    WorkoutDetailsComponent
+    WorkoutDetailsComponent,
+    MainComponentComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -40,8 +43,6 @@ import { WorkoutDetailsComponent } from './workout-details/workout-details.compo
     RouterModule.forRoot([
       { path: '', component: RegistrationComponent },
       { path: 'home', component: HomePageComponent },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
       { path: 'workout-details/:id', component: WorkoutDetailsComponent }
     ]),
     BrowserAnimationsModule,
@@ -54,7 +55,9 @@ import { WorkoutDetailsComponent } from './workout-details/workout-details.compo
     MatTableModule,
     MatInputModule,
     MatSelectModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

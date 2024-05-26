@@ -1,50 +1,55 @@
-<div>
-  <!-- Input form for creating workouts -->
-  <form [formGroup]="formGroup" (ngSubmit)="handleWorkoutNameSubmit()">
-    <mat-form-field>
-      <mat-label>Workout Name</mat-label>
-      <input matInput formControlName="workoutName" />
-    </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">Create Workout</button>
-  </form>
-
-  <h2>Your Workouts</h2>
-  <table mat-table [dataSource]="currentWorkouts" class="mat-elevation-z8">
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let workout">
-        <!-- Editable workout name -->
-        <ng-container *ngIf="editingWorkoutId !== workout.id; else editMode">
-          <a [routerLink]="['/workout-details', workout.id]">{{ workout.name }}</a>
-          <button mat-icon-button (click)="enableEdit(workout.id)">
-            <mat-icon>edit</mat-icon>
-          </button>
-        </ng-container>
-        <!-- Template for edit mode -->
-        <ng-template #editMode>
-          <input matInput [(ngModel)]="workout.name" #updatedName />
-          <button mat-icon-button (click)="updateWorkoutName(workout)">
-            <mat-icon>done</mat-icon>
-          </button>
-          <button mat-icon-button color="warn" (click)="cancelEdit()">
-            <mat-icon>close</mat-icon>
-          </button>
-        </ng-template>
-      </td>
-    </ng-container>
-
-    <!-- Actions Column -->
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef> Actions </th>
-      <td mat-cell *matCellDef="let workout">
-        <button mat-button (click)="handleDelete(workout.id)" color="warn">Delete</button>
-      </td>
-    </ng-container>
-
-    <!-- Header and row definitions -->
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+<div *ngIf="isLoading; else content">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
 </div>
+<ng-template #content>
+  <div>
+    <!-- Input form for creating workouts -->
+    <form [formGroup]="formGroup" (ngSubmit)="handleWorkoutNameSubmit()">
+      <mat-form-field>
+        <mat-label>Workout Name</mat-label>
+        <input matInput formControlName="workoutName" />
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Create Workout</button>
+    </form>
+
+    <h2>Your Workouts</h2>
+    <table mat-table [dataSource]="currentWorkouts" class="mat-elevation-z8">
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let workout">
+          <!-- Editable workout name -->
+          <ng-container *ngIf="editingWorkoutId !== workout.id; else editMode">
+            <a [routerLink]="['/workout-details', workout.id]">{{ workout.name }}</a>
+            <button mat-icon-button (click)="enableEdit(workout.id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </ng-container>
+          <!-- Template for edit mode -->
+          <ng-template #editMode>
+            <input matInput [(ngModel)]="workout.name" #updatedName />
+            <button mat-icon-button (click)="updateWorkoutName(workout)">
+              <mat-icon>done</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="cancelEdit()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let workout">
+          <button mat-button (click)="handleDelete(workout.id)" color="warn">Delete</button>
+        </td>
+      </ng-container>
+
+      <!-- Header and row definitions -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</ng-template>

@@ -17,7 +17,7 @@ export class WorkoutCreationFormComponent implements OnInit {
   userId!: string;
   displayedColumns: string[] = ['name', 'actions'];
   editingWorkoutId: string | null = null;
-
+  isLoading: boolean = true; // Variable to track loading state
   constructor(private formBuilder: FormBuilder, private dataService: DataService) { }
 
   ngOnInit(): void {
@@ -42,6 +42,7 @@ export class WorkoutCreationFormComponent implements OnInit {
     this.dataService.getWorkoutsByUserId(this.userId).subscribe((workouts: CreateWorkout[]) => {
       this.currentWorkouts = workouts;
       console.log(this.currentWorkouts);
+      this.isLoading = false;
     });
   }
 
