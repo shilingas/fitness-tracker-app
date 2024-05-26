@@ -4,12 +4,12 @@
     <mat-tab label="Registration">
         <form (submit)="onSubmit()" class="register">
           <mat-form-field>
-            <mat-label>Name</mat-label>
+            <mat-label>Username</mat-label>
             <input matInput type="text" name="name" [(ngModel)]="formData.name" required>
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>Surname</mat-label>
+            <mat-label>Name</mat-label>
             <input matInput type="text" name="surname" [(ngModel)]="formData.surname" required>
           </mat-form-field>
 
@@ -40,7 +40,7 @@
     <mat-tab label="Login">
         <form (submit)="onLogin()" class="login">
           <mat-form-field>
-            <mat-label>Login Name</mat-label>
+            <mat-label>Username</mat-label>
             <input matInput type="text" name="loginName" [(ngModel)]="loginName" required>
           </mat-form-field>
           <div class="button-container">
