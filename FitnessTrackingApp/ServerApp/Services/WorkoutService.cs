@@ -96,7 +96,23 @@ namespace FitnessTrackingApp.ServerApp.Services
 
             return userExercises;
         }
+
         [EnableCors("corsapp")]
+        public async Task<Workout?> UpdateWorkout(Guid id, WorkoutUpdate workoutUpdate)
+        {
+            var workout = await _context.Workouts.FirstOrDefaultAsync(w => w.Id == id);
+            if (workout == null)
+            {
+                return null;
+            }
+
+            workout.Name = workoutUpdate.Name;
+            workout.Version = Guid.NewGuid(); // Update the version to ensure concurrency control
+
+            await _context.SaveChangesAsync();
+            return workout;
+        }
+
         public async Task<List<Workout>> GetWorkoutsByUserId(Guid userId)
         {
             return await _context.Workouts

@@ -62,6 +62,30 @@ namespace FitnessTrackingApp.ServerApp.Controllers
             }
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateExercise(Guid id, [FromBody] ExercisePost exercisePost)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var updatedExercise = await _exerciseService.UpdateExercise(id, exercisePost);
+                if (updatedExercise == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(updatedExercise);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error while updating the exercise.");
+            }
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteExercise(Guid id)
         {
