@@ -2,7 +2,7 @@
   width: 100%;
   margin-top: 16px;
   border-collapse: separate;
-  border-spacing: 0 15px; /* Adds vertical spacing between rows */
+  border-spacing: 0 15px;
 }
 
 .mat-header-cell, .mat-cell {
@@ -16,7 +16,7 @@
 }
 
 .mat-cell {
-  border-bottom: none; /* Removes border to use custom spacing */
+  border-bottom: none;
 }
 
 .mat-header-row, .mat-row {
@@ -28,7 +28,7 @@
 }
 
 .mat-column-name {
-  flex: 2; /* Makes the name column wider */
+  flex: 2; 
 }
 
 .mat-column-maxReps, .mat-column-maxWeight {
