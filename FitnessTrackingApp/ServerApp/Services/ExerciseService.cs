@@ -47,5 +47,20 @@ namespace FitnessTrackingApp.ServerApp.Services
                 //throw error
             }
         }
+
+        public async Task<Exercise?> UpdateExercise(Guid id, ExercisePost exercisePost)
+        {
+            Exercise? existingExercise = await _context.Exercises.FirstOrDefaultAsync(ex => ex.Id == id);
+            if (existingExercise != null)
+            {
+                existingExercise.Title = exercisePost.Title;
+                existingExercise.Category = exercisePost.Category;
+                existingExercise.Description = exercisePost.Description;
+                existingExercise.Version = Guid.NewGuid(); // Update the version to a new GUID
+                await _context.SaveChangesAsync();
+                return existingExercise;
+            }
+            return null;
+        }
     }
 }
