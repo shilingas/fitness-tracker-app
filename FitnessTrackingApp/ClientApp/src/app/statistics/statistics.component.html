@@ -1,1 +1,49 @@
-<div echarts [options]="chartOption" class="echart" style="height: 400px;"></div>
+<div>
+
+  <mat-card class="statistics-card">
+    <mat-card-header>
+      <mat-card-title>Statistics</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="user-info">
+        <mat-grid-list cols="2" rowHeight="1:1">
+          <mat-grid-tile>
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Current Weight</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <p>{{ user.weight }} kg</p>
+              </mat-card-content>
+            </mat-card>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Goal Weight</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <p>{{ user.goalWeight }} kg</p>
+              </mat-card-content>
+            </mat-card>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+      <div echarts [options]="chartOption" class="echart"></div>
+    </mat-card-content>
+  </mat-card>
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter Weight:</mat-label>
+      <input matInput type="number" [(ngModel)]="weight">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="addWeightHistory()">Add Weight History</button>
+  </div>
+
+    <h2>Weight History:</h2>
+    <ul>
+      <li *ngFor="let item of weightHistory">
+        Weight: {{ item.newWeight }}, Date: {{ item.updatedDate | date:'short' }}
+      </li>
+    </ul>
+</div>

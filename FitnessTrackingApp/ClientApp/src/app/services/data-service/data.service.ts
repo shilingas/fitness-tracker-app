@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { CreateWorkout } from '../../models/CreateWorkout';
 import { Exercise } from '../../models/Exercise';
+import { HistoryModel } from '../../models/HistoryModel';
+import { HistoryModelArray } from '../../models/HistoryModelArray';
 import { TestModel } from '../../models/TestModel';
 import { User } from '../../models/User';
 import { UserExercise } from '../../models/UserExercise';
@@ -75,5 +77,10 @@ export class DataService {
   updateWorkout(id: string, updatedWorkout: CreateWorkout): Observable<CreateWorkout> {
     return this.http.put<CreateWorkout>(`https://localhost:7282/api/Workouts/${id}`, updatedWorkout);
   }
-
+  createWeightHistory(newHistory: HistoryModel): Observable<HistoryModel> {
+    return this.http.post<HistoryModel>('https://localhost:7282/api/Histories', newHistory)
+  }
+  getWeightHistoryByUserId(userId: string): Observable<HistoryModelArray[]> {
+    return this.http.get<HistoryModelArray[]>(`https://localhost:7282/api/Histories/${userId}`);
+  }
 }

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { HistoryModel } from '../models/HistoryModel';
+import { HistoryModelArray } from '../models/HistoryModelArray';
+import { User } from '../models/User';
+import { DataService } from '../services/data-service/data.service';
 
 @Component({
   selector: 'app-statistics',
@@ -36,9 +40,76 @@ export class StatisticsComponent implements OnInit {
       }
     ]
   };
-  constructor() { }
-
+  constructor(private dataService: DataService) { }
+  user!: User;
+  weightHistory: HistoryModelArray[] = [];
+  userId!: string;
+  weight: number = 0; // Property to hold weight input value
   ngOnInit(): void {
+    this.dataService.getUserIdByUsername(this.dataService.getUserName()).subscribe((x: any) => {
+      this.user = x;
+      this.userId = x.id;
+      console.log(x);
+      this.fetchWeightHistory();
+    })
   }
+  fetchWeightHistory() {
+    this.dataService.getWeightHistoryByUserId(this.userId).subscribe((history: HistoryModelArray[]) => {
+      this.weightHistory = history;
+      this.updateChart();
+    });
+  }
+
+  addWeightHistory() {
+    if (this.weight > 0) {
+      const newHistory: HistoryModel = {
+        userId: this.userId, // Assuming user has an id property
+        newWeight: this.weight
+      };
+      this.dataService.createWeightHistory(newHistory).subscribe((response) => {
+        console.log('Weight history added:', response);
+        this.weight = 0;
+        this.fetchWeightHistory();
+      }, (error) => {
+        console.error('Error adding weight history:', error);
+      });
+    } else {
+      console.error('Weight should be greater than 0.');
+    }
+  }
+
+  updateChart() {
+    const dates = this.weightHistory.map(item => new Date(item.updatedDate).getTime()); // Convert dates to timestamps
+    const weights = this.weightHistory.map(item => Number(item.newWeight)); // Convert newWeight to numbers
+
+    this.chartOption = {
+      title: {
+        text: 'Weight History'
+      },
+      tooltip: {
+        trigger: 'axis' // Specify the tooltip trigger type
+      },
+      legend: {
+        data: ['Weight History'] // Specify legend data if needed
+      },
+      xAxis: {
+        type: 'category',
+        data: dates.map(date => new Date(date).toLocaleDateString()) // Convert timestamps back to formatted dates
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          name: 'Weight History', // Set the name of the series
+          type: 'line',
+          data: weights
+        }
+      ]
+    };
+  }
+
+
+
 
 }

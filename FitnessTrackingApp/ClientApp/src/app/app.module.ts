@@ -28,6 +28,7 @@ import { MainComponentComponent } from './main-component/main-component.componen
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { MatGridListModule } from '@angular/material/grid-list';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +63,8 @@ import { StatisticsComponent } from './statistics/statistics.component';
     MatIconModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    NgxEchartsModule
+    NgxEchartsModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
