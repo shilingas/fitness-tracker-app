@@ -9,6 +9,7 @@ namespace FitnessTrackingApp.ServerApp.DataContext
         public DbSet<Workout> Workouts { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserExercise> UserExercises { get; set; }
+        public DbSet<History> History { get; set; }
         
         public WorkoutContext(DbContextOptions options) : base(options)
         {
