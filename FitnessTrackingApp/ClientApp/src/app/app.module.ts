@@ -21,6 +21,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { RegistrationComponent } from './registration/registration.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+
 import { WorkoutDetailsComponent } from './workout-details/workout-details.component';
 @NgModule({
   declarations: [
@@ -51,7 +53,8 @@ import { WorkoutDetailsComponent } from './workout-details/workout-details.compo
     MatSnackBarModule,
     MatTableModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

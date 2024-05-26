@@ -19,6 +19,22 @@ export class WorkoutCreationFormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private dataService: DataService) { }
 
+
+  editingWorkoutId: string | null = null;
+
+  enableEdit(workoutId: string) {
+    this.editingWorkoutId = workoutId;
+  }
+
+  updateWorkoutName(workout: CreateWorkout) {
+    console.log(workout);
+  }
+  cancelEdit() {
+    this.editingWorkoutId = null;
+  }
+
+
+
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
       workoutName: ['']
