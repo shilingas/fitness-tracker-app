@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { HistoryModel } from '../models/HistoryModel';
 import { HistoryModelArray } from '../models/HistoryModelArray';
 import { User } from '../models/User';
@@ -10,6 +11,7 @@ import { DataService } from '../services/data-service/data.service';
   styleUrls: ['./statistics.component.css']
 })
 export class StatisticsComponent implements OnInit {
+  updatedGoalWeight: number = 0;
   bmi: number = 0;
   chartOption = {
     title: {
@@ -41,8 +43,9 @@ export class StatisticsComponent implements OnInit {
       }
     ]
   };
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private router: Router) { }
   user!: User;
+  message: string = '';
   weightHistory: HistoryModelArray[] = [];
   userId!: string;
   weight: number = 0; // Property to hold weight input value
@@ -55,12 +58,16 @@ export class StatisticsComponent implements OnInit {
       this.fetchWeightHistory();
     })
   }
+  logOut() {
+    this.router.navigate(['']);
+  }
   fetchWeightHistory() {
     this.dataService.getWeightHistoryByUserId(this.userId).subscribe((history: HistoryModelArray[]) => {
-      this.weightHistory = history;
+      this.weightHistory = history.sort((a, b) => new Date(a.updatedDate).getTime() - new Date(b.updatedDate).getTime());
       this.updateChart();
     });
   }
+
 
   addWeightHistory() {
     if (this.weight > 0) {
@@ -78,6 +85,28 @@ export class StatisticsComponent implements OnInit {
     } else {
       console.error('Weight should be greater than 0.');
     }
+  }
+
+  updateGoalWeight() {
+    this.dataService.getUserIdByUsername(this.dataService.getUserName()).subscribe((x: any) => {
+      this.user = x;
+      this.userId = x.id;
+      const newUser: User = {
+        name: this.user.name,
+        surname: this.user.surname,
+        phoneNumber: this.user.phoneNumber,
+        weight: this.user.weight,
+        heigth: this.user.heigth,
+        goalWeight: this.updatedGoalWeight
+      }
+      this.dataService.updateGoalWeight(this.userId, newUser).subscribe((x: User) => {
+        console.log('updated user weight');
+        this.updatedGoalWeight = 0;
+        this.dataService.getUserIdByUsername(this.dataService.getUserName()).subscribe((x: any) => {
+          this.user = x;
+        })
+      })
+    })
   }
 
   updateChart() {

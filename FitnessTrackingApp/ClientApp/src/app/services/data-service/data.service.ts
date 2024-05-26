@@ -83,4 +83,8 @@ export class DataService {
   getWeightHistoryByUserId(userId: string): Observable<HistoryModelArray[]> {
     return this.http.get<HistoryModelArray[]>(`https://localhost:7282/api/Histories/${userId}`);
   }
+
+  updateGoalWeight(userId: string, user: User): Observable<User> {
+    return this.http.put<User>(`https://localhost:7282/api/Users/${userId}`, user);
+  }
 }
