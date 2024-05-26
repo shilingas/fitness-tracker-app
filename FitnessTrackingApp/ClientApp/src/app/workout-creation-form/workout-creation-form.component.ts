@@ -21,9 +21,7 @@ export class WorkoutCreationFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
-      exerciseName: '',
-      maxWeight: 0,
-      maxReps: 0
+      workoutName: ['']
     });
 
     this.dataService.getUserIdByUsername(this.dataService.getUserName()).subscribe((x: any) => {
@@ -40,32 +38,26 @@ export class WorkoutCreationFormComponent implements OnInit {
       this.exercises = exercises;
       console.log(this.exercises);
     });
+
+
+
   }
 
-  handleSubmit() {
-    const formValues = this.formGroup.value;
-    const selectedExerciseName = formValues.exerciseName;
 
-    const selectedExercise: any = this.exercises.find(exercise => exercise.title === selectedExerciseName);
-    const userExercise: UserExercise = {
-      exerciseId: selectedExercise.id,
-      userId: this.userId,
-      maxWeight: formValues.maxWeight,
-      maxReps: formValues.maxReps,
-    };
-
-    this.dataService.createUserExercise(userExercise).subscribe((x: UserExercise) => {
-      console.log('created user exercise');
-    });
-  }
-
-  handleWorkoutNameSubmit(workoutName: string) {
+  handleWorkoutNameSubmit() {
     const workout: CreateWorkout = {
-      name: workoutName,
+      name: this.formGroup.value.workoutName,
+      userId: this.userId,
     };
 
     this.dataService.createWorkout(workout).subscribe((x: CreateWorkout) => {
       console.log('created');
+      this.dataService.getWorkoutsByUserId(this.userId).subscribe((workouts: CreateWorkout[]) => {
+        this.currentWorkouts = workouts;
+        console.log(this.currentWorkouts);
+      });
     });
   }
+
+
 }

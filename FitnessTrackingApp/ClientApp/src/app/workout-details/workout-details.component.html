@@ -17,3 +17,37 @@
   </mat-form-field>
   <button mat-raised-button color="primary" type="submit">Submit</button>
 </form>
+
+<div>
+  <h2>Exercises in Workout</h2>
+  <table mat-table [dataSource]="exerciseDetails" class="mat-elevation-z8">
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef class="mat-header-cell"> Name </th>
+      <td mat-cell *matCellDef="let element" class="mat-cell">
+        {{ element.name }}
+      </td>
+    </ng-container>
+
+    <!-- Max Reps Column -->
+    <ng-container matColumnDef="maxReps">
+      <th mat-header-cell *matHeaderCellDef class="mat-header-cell"> Max Reps </th>
+      <td mat-cell *matCellDef="let element" class="mat-cell">
+        {{ element.maxReps }}
+      </td>
+    </ng-container>
+
+    <!-- Max Weight Column -->
+    <ng-container matColumnDef="maxWeight">
+      <th mat-header-cell *matHeaderCellDef class="mat-header-cell"> Max Weight </th>
+      <td mat-cell *matCellDef="let element" class="mat-cell">
+        {{ element.maxWeight }}
+      </td>
+    </ng-container>
+
+    <!-- Header and Row Definitions -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

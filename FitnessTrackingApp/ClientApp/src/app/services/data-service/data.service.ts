@@ -58,4 +58,11 @@ export class DataService {
   addUserExerciseToWorkout(userExerciseId: string, workoutId: string, ex: UserExercise): Observable<UserExercise> {
     return this.http.post<UserExercise>(`https://localhost:7282/api/UserExcercises/${userExerciseId}/workouts/${workoutId}`, ex)
   }
+
+  getWorkoutsExercises(workoutId: string): Observable<UserExercise[]> {
+    return this.http.get<UserExercise[]>(`https://localhost:7282/api/Workouts/${workoutId}/user-exercises`);
+  }
+  getExerciseById(exerciseId: string): Observable<Exercise> {
+    return this.http.get<Exercise>(`https://localhost:7282/api/Exercises/${exerciseId}`)
+  }
 }

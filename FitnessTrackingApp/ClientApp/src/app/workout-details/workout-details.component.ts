@@ -5,7 +5,7 @@ import { Exercise } from '../models/Exercise';
 import { User } from '../models/User';
 import { UserExercise } from '../models/UserExercise';
 import { DataService } from '../services/data-service/data.service';
-
+import { forkJoin } from 'rxjs';
 @Component({
   selector: 'app-workout-details',
   templateUrl: './workout-details.component.html',
@@ -17,6 +17,9 @@ export class WorkoutDetailsComponent implements OnInit {
   exercises: Exercise[] = [];
   currentExerciseId!: string;
   workoutId!: string;
+  exerciseDetails: { name: string; maxReps: number; maxWeight: number; }[] = [];
+  currentExercises!: UserExercise[];
+  displayedColumns: string[] = ['name', 'maxReps', 'maxWeight'];
   constructor(private formBuilder: FormBuilder, private dataService: DataService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -38,6 +41,18 @@ export class WorkoutDetailsComponent implements OnInit {
       this.workoutId = params.get('id')!;
       console.log(this.workoutId);
     });
+    this.dataService.getWorkoutsExercises(this.workoutId).subscribe((ex: UserExercise[]) => {
+      this.currentExercises = ex;
+      console.log(this.currentExercises);
+    })
+    this.loadUserExercises();
+  }
+
+  loadAllUserExercises() {
+    this.dataService.getWorkoutsExercises(this.workoutId).subscribe((ex: UserExercise[]) => {
+      this.currentExercises = ex;
+      console.log(this.currentExercises);
+    })
   }
 
   handleSubmit() {
@@ -60,10 +75,29 @@ export class WorkoutDetailsComponent implements OnInit {
       console.log(this.currentExerciseId, this.workoutId);
       this.dataService.addUserExerciseToWorkout(this.currentExerciseId, this.workoutId, userExercise).subscribe((y: UserExercise) => {
         console.log('added exercise to workout');
+        this.loadAllUserExercises();
+        this.loadUserExercises();
       });
-    });
-
-    
+    })
   }
 
+  loadUserExercises() {
+    this.dataService.getWorkoutsExercises(this.workoutId).subscribe((ex: UserExercise[]) => {
+      this.currentExercises = ex;
+      console.log('current exercises', this.currentExercises);
+
+      const exerciseDetails$ = this.currentExercises.map(exercise =>
+        this.dataService.getExerciseById(exercise.exerciseId)
+      );
+
+      forkJoin(exerciseDetails$).subscribe((details: Exercise[]) => {
+        this.exerciseDetails = details.map((detail, index) => ({
+          name: detail.title,
+          maxReps: this.currentExercises[index].maxReps,
+          maxWeight: this.currentExercises[index].maxWeight
+        }));
+        console.log('exercise details', this.exerciseDetails);
+      });
+    });
+  }
 }

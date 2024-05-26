@@ -1,18 +1,10 @@
 <div>
-  <form [formGroup]="formGroup" (ngSubmit)="handleSubmit()">
+  <form [formGroup]="formGroup" (ngSubmit)="handleWorkoutNameSubmit()">
     <mat-form-field>
-      <mat-label>Exercise Name</mat-label>
-      <input matInput formControlName="exerciseName" />
+      <mat-label>Workout Name</mat-label>
+      <input matInput formControlName="workoutName" />
     </mat-form-field>
-    <mat-form-field>
-      <mat-label>Max Weight</mat-label>
-      <input matInput formControlName="maxWeight" type="number" />
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Max Reps</mat-label>
-      <input matInput formControlName="maxReps" type="number" />
-    </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">Submit</button>
+    <button mat-raised-button color="primary" type="submit">Create Workout</button>
   </form>
 
   <h2>Your Workouts</h2>
