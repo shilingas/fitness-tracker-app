@@ -1,0 +1,24 @@
+/* Increase the width of the table */
+.mat-table {
+  width: 100%;
+}
+
+/* Increase the width of the cells in the table */
+.mat-cell, .mat-header-cell {
+  min-width: 200px; /* Adjust as needed */
+}
+
+/* Increase the font size of the table headers */
+.mat-header-cell {
+  font-size: 16px; /* Adjust as needed */
+}
+
+/* Increase the font size and padding of the cell contents */
+.mat-cell {
+  font-size: 14px; /* Adjust as needed */
+  padding: 12px 16px; /* Adjust as needed */
+}
+.mat-icon-button {
+  display: flex;
+  align-items: center;
+}

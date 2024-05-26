@@ -29,6 +29,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +65,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatCardModule,
     MatProgressSpinnerModule,
     NgxEchartsModule,
-    MatGridListModule
+    MatGridListModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
