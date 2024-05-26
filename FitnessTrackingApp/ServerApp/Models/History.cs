@@ -16,5 +16,17 @@ namespace FitnessTrackingApp.ServerApp.Models
         public decimal NewWeight { get; set; }
 
         public DateTime UpdatedDate { get; set; }
+
+        public History()
+        {
+
+        }
+
+        public History(Guid userId, decimal newWeight)
+        {
+            UserId = userId;
+            NewWeight = newWeight;
+            UpdatedDate = DateTime.UtcNow;
+        }
     }
 }
