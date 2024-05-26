@@ -26,6 +26,8 @@ import { MatCardModule } from '@angular/material/card';
 import { WorkoutDetailsComponent } from './workout-details/workout-details.component';
 import { MainComponentComponent } from './main-component/main-component.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgxEchartsModule } from 'ngx-echarts';
+import { StatisticsComponent } from './statistics/statistics.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,10 +36,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     WorkoutCreationFormComponent,
     RegistrationComponent,
     WorkoutDetailsComponent,
-    MainComponentComponent
+    MainComponentComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    NgxEchartsModule.forRoot({ echarts: () => import('echarts') }),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
@@ -57,7 +61,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatSelectModule,
     MatIconModule,
     MatCardModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    NgxEchartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
