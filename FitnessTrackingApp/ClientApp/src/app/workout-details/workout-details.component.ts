@@ -1,23 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { DataService } from '../services/data-service/data.service';
+import { ActivatedRoute } from '@angular/router';
 import { Exercise } from '../models/Exercise';
+import { User } from '../models/User';
 import { UserExercise } from '../models/UserExercise';
-import { CreateWorkout } from '../models/CreateWorkout';
+import { DataService } from '../services/data-service/data.service';
 
 @Component({
-  selector: 'app-workout-creation-form',
-  templateUrl: './workout-creation-form.component.html',
-  styleUrls: ['./workout-creation-form.component.css']
+  selector: 'app-workout-details',
+  templateUrl: './workout-details.component.html',
+  styleUrls: ['./workout-details.component.css']
 })
-export class WorkoutCreationFormComponent implements OnInit {
+export class WorkoutDetailsComponent implements OnInit {
   formGroup!: FormGroup;
-  exercises: Exercise[] = [];
-  currentWorkouts: CreateWorkout[] = [];
   userId!: string;
-  displayedColumns: string[] = ['name', 'actions'];
-
-  constructor(private formBuilder: FormBuilder, private dataService: DataService) { }
+  exercises: Exercise[] = [];
+  currentExerciseId!: string;
+  workoutId!: string;
+  constructor(private formBuilder: FormBuilder, private dataService: DataService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
@@ -27,18 +27,16 @@ export class WorkoutCreationFormComponent implements OnInit {
     });
 
     this.dataService.getUserIdByUsername(this.dataService.getUserName()).subscribe((x: any) => {
-      this.userId = x.id;
-      console.log(this.userId);
+      console.log('x', x.id);
 
-      this.dataService.getWorkoutsByUserId(this.userId).subscribe((workouts: CreateWorkout[]) => {
-        this.currentWorkouts = workouts;
-        console.log(this.currentWorkouts);
-      });
-    });
-
+    })
     this.dataService.getAllExercises().subscribe((exercises: Exercise[]) => {
       this.exercises = exercises;
       console.log(this.exercises);
+    });
+    this.route.paramMap.subscribe(params => {
+      this.workoutId = params.get('id')!;
+      console.log(this.workoutId);
     });
   }
 
@@ -54,18 +52,18 @@ export class WorkoutCreationFormComponent implements OnInit {
       maxReps: formValues.maxReps,
     };
 
-    this.dataService.createUserExercise(userExercise).subscribe((x: UserExercise) => {
+    this.dataService.createUserExercise(userExercise).subscribe((x: any) => {
       console.log('created user exercise');
+      this.currentExerciseId = x.id;
+
+
+      console.log(this.currentExerciseId, this.workoutId);
+      this.dataService.addUserExerciseToWorkout(this.currentExerciseId, this.workoutId, userExercise).subscribe((y: UserExercise) => {
+        console.log('added exercise to workout');
+      });
     });
+
+    
   }
 
-  handleWorkoutNameSubmit(workoutName: string) {
-    const workout: CreateWorkout = {
-      name: workoutName,
-    };
-
-    this.dataService.createWorkout(workout).subscribe((x: CreateWorkout) => {
-      console.log('created');
-    });
-  }
 }

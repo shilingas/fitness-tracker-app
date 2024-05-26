@@ -21,6 +21,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { RegistrationComponent } from './registration/registration.component';
 import { MatSelectModule } from '@angular/material/select';
+import { WorkoutDetailsComponent } from './workout-details/workout-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +29,7 @@ import { MatSelectModule } from '@angular/material/select';
     ExerciseCreationFormComponent,
     WorkoutCreationFormComponent,
     RegistrationComponent,
+    WorkoutDetailsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -38,6 +40,7 @@ import { MatSelectModule } from '@angular/material/select';
       { path: 'home', component: HomePageComponent },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'workout-details/:id', component: WorkoutDetailsComponent }
     ]),
     BrowserAnimationsModule,
     MatTabsModule,

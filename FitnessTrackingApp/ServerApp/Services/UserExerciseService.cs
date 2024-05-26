@@ -2,6 +2,7 @@
 using FitnessTrackingApp.ServerApp.IServices;
 using FitnessTrackingApp.ServerApp.Models;
 using FitnessTrackingApp.ServerApp.Other.Dto;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.EntityFrameworkCore;
 using OpenQA.Selenium;
 
@@ -15,17 +16,17 @@ namespace FitnessTrackingApp.ServerApp.Services
         {
             _context = context;
         }
-
+        [EnableCors("corsapp")]
         public async Task<List<UserExercise>> GetAllUserExercises()
         {
             return await _context.UserExercises.ToListAsync();
         }
-
+        [EnableCors("corsapp")]
         public async Task<UserExercise?> GetUserExerciseById(Guid id)
         {
             return await _context.UserExercises.FirstOrDefaultAsync(ue => ue.Id == id);
         }
-
+        [EnableCors("corsapp")]
         public async Task<UserExercise> CreateUserExercise(UserExercisePost userExercisePost)
         {
             UserExercise userExercise = new UserExercise(userExercisePost);
@@ -34,7 +35,7 @@ namespace FitnessTrackingApp.ServerApp.Services
             await _context.SaveChangesAsync();
             return userExercise;
         }
-
+        [EnableCors("corsapp")]
         public async Task<UserExercise> UpdateUserExercise(Guid id, UserExercisePut userExercisePut)
         {
             var existingUserExercise = await _context.UserExercises.FindAsync(id);
@@ -50,7 +51,7 @@ namespace FitnessTrackingApp.ServerApp.Services
             await _context.SaveChangesAsync();
             return existingUserExercise;
         }
-
+        [EnableCors("corsapp")]
         public async Task DeleteUserExercise(Guid id)
         {
             UserExercise? userExercise = await _context.UserExercises.FirstOrDefaultAsync(ue => ue.Id == id);
@@ -65,7 +66,7 @@ namespace FitnessTrackingApp.ServerApp.Services
             }
 
         }
-
+        [EnableCors("corsapp")]
         public async Task<UserExerciseDto> AddUserExerciseToWorkout(Guid userExerciseId, Guid workoutId)
         {
             var userExercise = await _context.UserExercises
@@ -95,7 +96,7 @@ namespace FitnessTrackingApp.ServerApp.Services
 
             return dto;
         }
-
+        [EnableCors("corsapp")]
         public async Task<List<UserExerciseDto>> AddAndCreateUserExercises(List<UserExercisePost> userExercisesPost, Guid workoutId)
         {
             var workout = await _context.Workouts.FindAsync(workoutId);

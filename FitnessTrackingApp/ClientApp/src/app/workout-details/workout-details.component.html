@@ -1,0 +1,19 @@
+<form [formGroup]="formGroup" (ngSubmit)="handleSubmit()">
+  <mat-form-field>
+    <mat-label>Exercise Name</mat-label>
+    <mat-select formControlName="exerciseName">
+      <mat-option *ngFor="let exercise of exercises" [value]="exercise.title">
+        {{ exercise.title }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Max Weight</mat-label>
+    <input matInput formControlName="maxWeight" type="number" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Max Reps</mat-label>
+    <input matInput formControlName="maxReps" type="number" />
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit">Submit</button>
+</form>

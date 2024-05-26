@@ -1,27 +1,40 @@
-<!-- workout-creation-form.component.html -->
 <div>
-  <!-- Form for selecting exercise -->
-  <div [formGroup]="formGroup">
+  <form [formGroup]="formGroup" (ngSubmit)="handleSubmit()">
     <mat-form-field>
-      <mat-label>Select Exercise</mat-label>
-      <mat-select formControlName="exerciseName">
-        <mat-option *ngFor="let exercise of exercises" [value]="exercise.title">{{ exercise.title }}</mat-option>
-      </mat-select>
+      <mat-label>Exercise Name</mat-label>
+      <input matInput formControlName="exerciseName" />
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="number" placeholder="Maximum Weight" formControlName="maxWeight">
+      <mat-label>Max Weight</mat-label>
+      <input matInput formControlName="maxWeight" type="number" />
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="number" placeholder="Maximum Repetitions" formControlName="maxReps">
+      <mat-label>Max Reps</mat-label>
+      <input matInput formControlName="maxReps" type="number" />
     </mat-form-field>
-    <button mat-raised-button color="accent" (click)="handleSubmit()">Submit</button>
-  </div>
-
-  <!-- Form for entering workout name -->
-  <form (ngSubmit)="handleWorkoutNameSubmit(workoutName.value)" #workoutNameForm="ngForm">
-    <mat-form-field>
-      <input matInput type="text" name="workoutName" #workoutName ngModel placeholder="Enter Workout Name" required>
-    </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">Create Workout</button>
+    <button mat-raised-button color="primary" type="submit">Submit</button>
   </form>
+
+  <h2>Your Workouts</h2>
+  <table mat-table [dataSource]="currentWorkouts" class="mat-elevation-z8">
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let workout">
+        <a [routerLink]="['/workout-details', workout.id]">{{ workout.name }}</a>
+      </td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let workout">
+        <button mat-button color="warn">Delete</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
 </div>
