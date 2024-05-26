@@ -12,6 +12,7 @@ import { DataService } from '../services/data-service/data.service';
 })
 export class StatisticsComponent implements OnInit {
   updatedGoalWeight: number = 0;
+  bmi: number = 0;
   chartOption = {
     title: {
       text: 'Line Chart Example'
@@ -53,6 +54,7 @@ export class StatisticsComponent implements OnInit {
       this.user = x;
       this.userId = x.id;
       console.log(x);
+      this.bmi = (this.user.weight / this.user.heigth / this.user.heigth) * 10000;
       this.fetchWeightHistory();
     })
   }

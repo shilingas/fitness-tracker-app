@@ -15,6 +15,27 @@
 
 
 
+
+  <div class="progress-container">
+    <mat-progress-bar mode="determinate" [value]="bmi" [ngClass]="{
+    'underweight' : bmi < 18.5,
+    'normal': bmi >= 18.5 && bmi < 25,
+    'overweight': bmi >= 25 && bmi < 30,
+    'obese': bmi >= 30 }">
+    </mat-progress-bar>
+    <div class="marker underweight-marker" style="left: calc(18.5% - 2px)"></div>
+    <div class="marker normal-marker" style="left: calc(25% - 2px)"></div>
+    <div class="marker overweight-marker" style="left: calc(30% - 2px)"></div>
+  </div>
+  <div class="description">
+    <p *ngIf="bmi < 18.5">Your BMI is {{ bmi.toFixed(1) }}, which indicates you are underweight.</p>
+    <p *ngIf="bmi >= 18.5 && bmi < 25">Your BMI is {{ bmi.toFixed(1) }}, which falls within the normal weight range.</p>
+    <p *ngIf="bmi >= 25 && bmi < 30">Your BMI is {{ bmi.toFixed(1) }}, which indicates you are overweight.</p>
+    <p *ngIf="bmi >= 30">Your BMI is {{ bmi.toFixed(1) }}, which indicates you are obese.</p>
+  </div>
+
+
+
   <mat-card class="statistics-card">
     <mat-card-header>
       <mat-card-title>Statistics</mat-card-title>
