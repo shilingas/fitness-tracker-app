@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System;
+using FitnessTrackingApp.ServerApp.Other.Dto;
 
 namespace FitnessTrackingApp.ServerApp.Models
 {
@@ -22,10 +23,10 @@ namespace FitnessTrackingApp.ServerApp.Models
 
         }
 
-        public History(Guid userId, decimal newWeight)
+        public History(HistoryPost historyPost)
         {
-            UserId = userId;
-            NewWeight = newWeight;
+            UserId = historyPost.UserId;
+            NewWeight = historyPost.NewWeight;
             UpdatedDate = DateTime.UtcNow;
         }
     }

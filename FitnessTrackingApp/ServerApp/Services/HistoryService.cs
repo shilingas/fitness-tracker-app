@@ -1,11 +1,12 @@
 ﻿using FitnessTrackingApp.ServerApp.DataContext;
 using FitnessTrackingApp.ServerApp.IServices;
 using FitnessTrackingApp.ServerApp.Models;
+using FitnessTrackingApp.ServerApp.Other.Dto;
 using Microsoft.EntityFrameworkCore;
 
 namespace FitnessTrackingApp.ServerApp.Services
 {
-    public class HistoryService : IHistory
+    public class HistoryService : IHistoryService
     {
         private readonly WorkoutContext _context;
 
@@ -21,9 +22,9 @@ namespace FitnessTrackingApp.ServerApp.Services
                  .ToListAsync();
         }
 
-        public async Task<History> AddNewData(Guid id, decimal newWeight)
+        public async Task<History> AddNewData(HistoryPost userPost)
         {
-            History history = new History(id, newWeight);
+            History history = new History(userPost);
             _context.History.Add(history);
             await _context.SaveChangesAsync();
             return history;
