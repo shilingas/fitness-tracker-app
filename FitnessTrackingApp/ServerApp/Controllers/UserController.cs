@@ -13,10 +13,12 @@ namespace FitnessTrackingApp.ServerApp.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IHistoryService _historyService;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IHistoryService historyService)
         {
             _userService = userService;
+            _historyService = historyService;
         }
 
         [HttpGet]
@@ -55,6 +57,10 @@ namespace FitnessTrackingApp.ServerApp.Controllers
                 }
 
                 var createdUser = await _userService.CreateUser(userPost);
+                HistoryPost historyPost = new HistoryPost();
+                historyPost.UserId = createdUser.Id;
+                historyPost.NewWeight = createdUser.Weight;
+                await _historyService.AddNewData(historyPost);
                 return Ok(createdUser);
             }
             catch (Exception ex)

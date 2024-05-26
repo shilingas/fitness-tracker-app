@@ -1,4 +1,5 @@
 using FitnessTrackingApp.ServerApp.DataContext;
+using FitnessTrackingApp.ServerApp.Decorators;
 using FitnessTrackingApp.ServerApp.IServices;
 using FitnessTrackingApp.ServerApp.Services;
 using Microsoft.EntityFrameworkCore;
@@ -22,10 +23,13 @@ builder.Services.AddScoped<IExerciseService, ExerciseService>();
 builder.Services.AddScoped<IWorkoutService, WorkoutService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserExerciseService, UserExerciseService>();
+builder.Services.AddScoped<IHistoryService,  HistoryService>();
 builder.Services.AddDbContext<WorkoutContext>(options =>
 {
     options.UseMySQL(builder.Configuration.GetConnectionString("Host"));
 });
+
+//builder.Services.Decorate<IWorkoutService, ExampleDecorator>();
 
 builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 {

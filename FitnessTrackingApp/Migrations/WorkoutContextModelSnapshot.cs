@@ -45,6 +45,26 @@ namespace FitnessTrackingApp.Migrations
                     b.ToTable("Exercises");
                 });
 
+            modelBuilder.Entity("FitnessTrackingApp.ServerApp.Models.History", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<decimal>("NewWeight")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("History");
+                });
+
             modelBuilder.Entity("FitnessTrackingApp.ServerApp.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -73,8 +93,8 @@ namespace FitnessTrackingApp.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("char(36)");
 
-                    b.Property<float?>("Weight")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Weight")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
