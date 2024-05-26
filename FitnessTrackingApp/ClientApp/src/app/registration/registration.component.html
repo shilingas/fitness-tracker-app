@@ -1,0 +1,52 @@
+<!-- registration.component.html -->
+<div class="registration-container">
+  <mat-tab-group mat-stretch-tabs>
+    <mat-tab label="Registration">
+        <form (submit)="onSubmit()" class="register">
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput type="text" name="name" [(ngModel)]="formData.name" required>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Surname</mat-label>
+            <input matInput type="text" name="surname" [(ngModel)]="formData.surname" required>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Phone Number</mat-label>
+            <input matInput type="text" name="phoneNumber" [(ngModel)]="formData.phoneNumber" required>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Weight</mat-label>
+            <input matInput type="number" name="weight" [(ngModel)]="formData.weight" required>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Height</mat-label>
+            <input matInput type="number" name="heigth" [(ngModel)]="formData.heigth" required>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Goal Weight</mat-label>
+            <input matInput type="number" name="goalWeight" [(ngModel)]="formData.goalWeight" required>
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" type="submit">Register</button>
+        </form>
+    </mat-tab>
+
+    <mat-tab label="Login">
+        <form (submit)="onLogin()" class="login">
+          <mat-form-field>
+            <mat-label>Login Name</mat-label>
+            <input matInput type="text" name="loginName" [(ngModel)]="loginName" required>
+          </mat-form-field>
+          <div class="button-container">
+            <button mat-raised-button color="primary" type="submit">Login</button>
+          </div>
+        </form>
+    </mat-tab>
+  </mat-tab-group>
+</div>

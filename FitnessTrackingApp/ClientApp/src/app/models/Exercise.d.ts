@@ -1,5 +1,5 @@
 export interface Exercise {
   title: string;
+  category: string;
   description: string;
-  imageData: string;
 }

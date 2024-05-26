@@ -16,29 +16,57 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
+import { WorkoutCreationFormComponent } from './workout-creation-form/workout-creation-form.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
+import { RegistrationComponent } from './registration/registration.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { WorkoutDetailsComponent } from './workout-details/workout-details.component';
+import { MainComponentComponent } from './main-component/main-component.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgxEchartsModule } from 'ngx-echarts';
+import { StatisticsComponent } from './statistics/statistics.component';
+import { MatGridListModule } from '@angular/material/grid-list';
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
-    ExerciseCreationFormComponent
+    ExerciseCreationFormComponent,
+    WorkoutCreationFormComponent,
+    RegistrationComponent,
+    WorkoutDetailsComponent,
+    MainComponentComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    NgxEchartsModule.forRoot({ echarts: () => import('echarts') }),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomePageComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
+      { path: '', component: RegistrationComponent },
+      { path: 'home', component: HomePageComponent },
+      { path: 'workout-details/:id', component: WorkoutDetailsComponent }
     ]),
     BrowserAnimationsModule,
     MatTabsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSnackBarModule,
+    MatTableModule,
+    MatInputModule,
+    MatSelectModule,
+    MatIconModule,
+    MatCardModule,
+    MatProgressSpinnerModule,
+    NgxEchartsModule,
+    MatGridListModule
   ],
   providers: [],
-  bootstrap: [HomePageComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

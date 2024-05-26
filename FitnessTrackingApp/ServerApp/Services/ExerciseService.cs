@@ -2,10 +2,12 @@
 using FitnessTrackingApp.ServerApp.IServices;
 using FitnessTrackingApp.ServerApp.Models;
 using FitnessTrackingApp.ServerApp.Other.Dto;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.EntityFrameworkCore;
 
 namespace FitnessTrackingApp.ServerApp.Services
 {
+
     public class ExerciseService : IExerciseService
     {
         private readonly WorkoutContext _context;
@@ -24,6 +26,7 @@ namespace FitnessTrackingApp.ServerApp.Services
         {
             return await _context.Exercises.FirstOrDefaultAsync(ex => ex.Id == id);
         }
+        [EnableCors("corsapp")]
 
         public async Task<Exercise> CreateExercise(ExercisePost exercisePost)
         {

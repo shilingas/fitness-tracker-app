@@ -18,14 +18,14 @@ namespace FitnessTrackingApp.ServerApp.Controllers
         {
             _userExerciseService = userExerciseService;
         }
-
+        [EnableCors("corsapp")]
         [HttpGet]
         public async Task<IActionResult> GetAllUserExercises()
         {
             var userExercises = await _userExerciseService.GetAllUserExercises();
             return Ok(userExercises);
         }
-
+        [EnableCors("corsapp")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(Guid id)
         {
@@ -43,7 +43,7 @@ namespace FitnessTrackingApp.ServerApp.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error while retrieving the user exercise.");
             }
         }
-
+        [EnableCors("corsapp")]
         [HttpPost]
         public async Task<IActionResult> AddUserExercise([FromBody] UserExercisePost userExercisePost)
         {
@@ -62,7 +62,7 @@ namespace FitnessTrackingApp.ServerApp.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error while adding the user exercise.");
             }
         }
-
+        [EnableCors("corsapp")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUserExercise(Guid id,[FromBody] UserExercisePut userExercisePut)
         {
@@ -81,7 +81,7 @@ namespace FitnessTrackingApp.ServerApp.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error while updating the user exercise.");
             }
         }
-
+        [EnableCors("corsapp")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteExercise(Guid id)
         {
@@ -95,7 +95,7 @@ namespace FitnessTrackingApp.ServerApp.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error while deleting the user exercise.");
             }
         }
-
+        [EnableCors("corsapp")]
         [HttpPost("{userExerciseId}/workouts/{workoutId}")]
         public async Task<IActionResult> AddUserExerciseToWorkout(Guid userExerciseId, Guid workoutId)
         {
@@ -114,7 +114,7 @@ namespace FitnessTrackingApp.ServerApp.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error while adding the user exercise to the workout.");
             }
         }
-
+        [EnableCors("corsapp")]
         [HttpPost("add-multiple-to-workout/{workoutId}")]
         public async Task<IActionResult> AddAndCreateUserExercisesToWorkout([FromBody] List<UserExercisePost> userExercisePosts, Guid workoutId)
         {
