@@ -32,5 +32,10 @@ namespace FitnessTrackingApp.ServerApp.Decorators
         {
             return _decoratedService.GetExerciseById(id);
         }
+
+        public Task<Exercise?> UpdateExercise(Guid id, ExercisePost exercisePost)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
