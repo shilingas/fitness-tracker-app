@@ -17,3 +17,33 @@ code {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.mat-progress-bar {
+  height: 20px; /* Adjust the height as needed */
+}
+
+.mat-progress-bar-fill {
+  height: 100%;
+}
+
+  .mat-progress-bar-fill::after {
+    background-color: white !important; /* Set the background color to white */
+  }
+
+/* Customize BMI categories */
+.mat-progress-bar.underweight .mat-progress-bar-fill::after {
+  background-color: #ff0000 !important; /* Red */
+}
+
+.mat-progress-bar.normal .mat-progress-bar-fill::after {
+  background-color: #00ff00 !important; /* Green */
+}
+
+.mat-progress-bar.overweight .mat-progress-bar-fill::after {
+  background-color: #ffff00 !important; /* Yellow */
+}
+
+.mat-progress-bar.obese .mat-progress-bar-fill::after {
+  background-color: #ff8000 !important; /* Orange */
+}
