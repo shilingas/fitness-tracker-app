@@ -1,9 +1,7 @@
 <mat-tab-group [selectedIndex]="selectedIndex" (selectedIndexChange)="onTabChange($event)" mat-stretch-tabs="false" mat-align-tabs="start">
-  <mat-tab label="Profile">
+  <mat-tab label="Statistics">
     <ng-container *ngIf="selectedIndex === 0">
-      <div *ngIf="user" class="user-card-container">
-        <app-main-component></app-main-component>
-      </div>
+      <app-statistics></app-statistics>
     </ng-container>
   </mat-tab>
   <mat-tab label="Exercises">
@@ -14,11 +12,6 @@
   <mat-tab label="Workouts">
     <ng-container *ngIf="selectedIndex === 2">
       <app-workout-creation-form></app-workout-creation-form>
-    </ng-container>
-  </mat-tab>
-  <mat-tab label="Statistics">
-    <ng-container *ngIf="selectedIndex === 3">
-      <app-statistics></app-statistics>
     </ng-container>
   </mat-tab>
 </mat-tab-group>

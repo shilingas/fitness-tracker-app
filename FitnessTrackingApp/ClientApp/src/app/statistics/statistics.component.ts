@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { HistoryModel } from '../models/HistoryModel';
 import { HistoryModelArray } from '../models/HistoryModelArray';
 import { User } from '../models/User';
@@ -41,8 +42,9 @@ export class StatisticsComponent implements OnInit {
       }
     ]
   };
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private router: Router) { }
   user!: User;
+  message: string = '';
   weightHistory: HistoryModelArray[] = [];
   userId!: string;
   weight: number = 0; // Property to hold weight input value
@@ -53,6 +55,9 @@ export class StatisticsComponent implements OnInit {
       console.log(x);
       this.fetchWeightHistory();
     })
+  }
+  logOut() {
+    this.router.navigate(['']);
   }
   fetchWeightHistory() {
     this.dataService.getWeightHistoryByUserId(this.userId).subscribe((history: HistoryModelArray[]) => {
