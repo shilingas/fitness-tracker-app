@@ -13,7 +13,8 @@ namespace FitnessTrackingApp.ServerApp.Other.Dto
         [Required]
         public string PhoneNumber { get; set; }
 
-        public float? Weight { get; set; }
+        [Required]
+        public decimal Weight { get; set; }
 
         public int? Heigth { get; set; }
 

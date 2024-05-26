@@ -23,6 +23,7 @@ builder.Services.AddScoped<IExerciseService, ExerciseService>();
 builder.Services.AddScoped<IWorkoutService, WorkoutService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserExerciseService, UserExerciseService>();
+builder.Services.AddScoped<IHistoryService,  HistoryService>();
 builder.Services.AddDbContext<WorkoutContext>(options =>
 {
     options.UseMySQL(builder.Configuration.GetConnectionString("Host"));

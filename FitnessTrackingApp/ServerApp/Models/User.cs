@@ -19,7 +19,7 @@ namespace FitnessTrackingApp.ServerApp.Models
         [Required]
         public string PhoneNumber { get; set; }
 
-        public float? Weight { get; set; }
+        public decimal Weight { get; set; }
 
         public int? Heigth { get; set; }
 
