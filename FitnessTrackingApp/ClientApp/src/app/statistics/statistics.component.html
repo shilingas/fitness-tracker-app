@@ -24,6 +24,11 @@
               </mat-card-header>
               <mat-card-content>
                 <p>{{ user.goalWeight }} kg</p>
+                <mat-form-field appearance="fill">
+                  <mat-label>Update Goal Weight</mat-label>
+                  <input matInput type="number" [(ngModel)]="updatedGoalWeight">
+                </mat-form-field>
+                <button mat-raised-button color="primary" (click)="updateGoalWeight()">Update</button>
               </mat-card-content>
             </mat-card>
           </mat-grid-tile>
@@ -32,6 +37,7 @@
       <div echarts [options]="chartOption" class="echart"></div>
     </mat-card-content>
   </mat-card>
+
   <div>
     <mat-form-field appearance="fill">
       <mat-label>Enter Weight:</mat-label>
@@ -40,10 +46,10 @@
     <button mat-raised-button color="primary" (click)="addWeightHistory()">Add Weight History</button>
   </div>
 
-    <h2>Weight History:</h2>
-    <ul>
-      <li *ngFor="let item of weightHistory">
-        Weight: {{ item.newWeight }}, Date: {{ item.updatedDate | date:'short' }}
-      </li>
-    </ul>
+  <h2>Weight History:</h2>
+  <ul>
+    <li *ngFor="let item of weightHistory">
+      Weight: {{ item.newWeight }}, Date: {{ item.updatedDate | date:'short' }}
+    </li>
+  </ul>
 </div>

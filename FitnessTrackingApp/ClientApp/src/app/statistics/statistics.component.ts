@@ -10,6 +10,7 @@ import { DataService } from '../services/data-service/data.service';
   styleUrls: ['./statistics.component.css']
 })
 export class StatisticsComponent implements OnInit {
+  updatedGoalWeight: number = 0;
   chartOption = {
     title: {
       text: 'Line Chart Example'
@@ -55,10 +56,11 @@ export class StatisticsComponent implements OnInit {
   }
   fetchWeightHistory() {
     this.dataService.getWeightHistoryByUserId(this.userId).subscribe((history: HistoryModelArray[]) => {
-      this.weightHistory = history;
+      this.weightHistory = history.sort((a, b) => new Date(a.updatedDate).getTime() - new Date(b.updatedDate).getTime());
       this.updateChart();
     });
   }
+
 
   addWeightHistory() {
     if (this.weight > 0) {
@@ -76,6 +78,28 @@ export class StatisticsComponent implements OnInit {
     } else {
       console.error('Weight should be greater than 0.');
     }
+  }
+
+  updateGoalWeight() {
+    this.dataService.getUserIdByUsername(this.dataService.getUserName()).subscribe((x: any) => {
+      this.user = x;
+      this.userId = x.id;
+      const newUser: User = {
+        name: this.user.name,
+        surname: this.user.surname,
+        phoneNumber: this.user.phoneNumber,
+        weight: this.user.weight,
+        heigth: this.user.heigth,
+        goalWeight: this.updatedGoalWeight
+      }
+      this.dataService.updateGoalWeight(this.userId, newUser).subscribe((x: User) => {
+        console.log('updated user weight');
+        this.updatedGoalWeight = 0;
+        this.dataService.getUserIdByUsername(this.dataService.getUserName()).subscribe((x: any) => {
+          this.user = x;
+        })
+      })
+    })
   }
 
   updateChart() {
