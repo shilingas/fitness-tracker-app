@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FitnessTrackingApp.ServerApp.Controllers
 {
-    [Route("api/[controller]s")]
+    [Route("api/Histories")]
     [ApiController]
     [EnableCors("corsapp")]
     public class HistoryController : ControllerBase

@@ -46,8 +46,6 @@ namespace FitnessTrackingApp.ServerApp.Services
             existingUser.Name = userUpdate.Name ?? existingUser.Name;
             existingUser.Surname = userUpdate.Surname ?? existingUser.Surname;
             existingUser.PhoneNumber = userUpdate.PhoneNumber ?? existingUser.PhoneNumber;
-            existingUser.Heigth = userUpdate.Heigth ?? existingUser.Heigth;
-            existingUser.Weight = userUpdate.Weight ?? existingUser.Weight;
             existingUser.GoalWeight = userUpdate.GoalWeight ?? existingUser.GoalWeight;
             existingUser.Version = Guid.NewGuid();
             _context.Users.Add(existingUser);
