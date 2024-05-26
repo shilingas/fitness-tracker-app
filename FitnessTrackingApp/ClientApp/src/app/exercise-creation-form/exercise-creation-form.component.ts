@@ -11,15 +11,17 @@ import { Exercise } from "../models/Exercise";
 })
 export class ExerciseCreationFormComponent implements OnInit {
   formGroup!: FormGroup;
-  displayedColumns: string[] = ['title', 'category', 'description'];
+  displayedColumns: string[] = ['title', 'category', 'description', 'actions'];
   exercises: Exercise[] = [];
+  editedExercise: Exercise | null = null;
+  editedExerciseId: string | null = null;
 
   constructor(private dataService: DataService, private snackBar: MatSnackBar) {
     this.formGroup = new FormGroup({
       title: new FormControl(''),
       category: new FormControl(''),
       description: new FormControl(''),
-    })
+    });
   }
 
   ngOnInit(): void {
@@ -38,18 +40,42 @@ export class ExerciseCreationFormComponent implements OnInit {
       description: form.value.description,
       category: form.value.category,
     };
-    console.log(form.value);
     this.dataService.createExercise(exercise).subscribe((x: Exercise) => {
-      console.log('posted');
       this.snackBar.open('Exercise created successfully!', 'Close', {
         duration: 2000,
       });
-      this.loadExercises(); 
+      this.loadExercises();
     }, error => {
-      console.error('Error creating exercise', error);
       this.snackBar.open('Failed to create exercise', 'Close', {
         duration: 2000,
       });
     });
+  }
+
+  startEditing(exercise: Exercise, exerciseId: string): void {
+    this.editedExercise = { ...exercise };
+    this.editedExerciseId = exerciseId;
+  }
+
+  cancelEditing(): void {
+    this.editedExercise = null;
+    this.editedExerciseId = null;
+  }
+
+  saveExercise(): void {
+    if (this.editedExercise && this.editedExerciseId) {
+      this.dataService.updateExercise(this.editedExerciseId, this.editedExercise).subscribe(updatedExercise => {
+        this.snackBar.open('Exercise updated successfully!', 'Close', {
+          duration: 2000,
+        });
+        this.loadExercises();
+        this.editedExercise = null;
+        this.editedExerciseId = null;
+      }, error => {
+        this.snackBar.open('Failed to update exercise', 'Close', {
+          duration: 2000,
+        });
+      });
+    }
   }
 }
