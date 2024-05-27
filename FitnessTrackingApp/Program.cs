@@ -1,11 +1,19 @@
 using FitnessTrackingApp.ServerApp.DataContext;
 using FitnessTrackingApp.ServerApp.Decorators;
 using FitnessTrackingApp.ServerApp.IServices;
+using FitnessTrackingApp.ServerApp.Middleware;
 using FitnessTrackingApp.ServerApp.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 // Add Swagger services
 builder.Services.AddSwaggerGen(options =>
@@ -29,6 +37,7 @@ builder.Services.AddDbContext<WorkoutContext>(options =>
     options.UseMySQL(builder.Configuration.GetConnectionString("Host"));
 });
 
+builder.Services.AddSingleton<ICustomLogger, CustomLogger>();
 //builder.Services.Decorate<IWorkoutService, ExampleDecorator>();
 
 builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
@@ -44,6 +53,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseMiddleware<LoggingMiddleware>();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
