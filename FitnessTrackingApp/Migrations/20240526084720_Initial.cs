@@ -34,8 +34,7 @@ namespace FitnessTrackingApp.Migrations
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false),
                     UserId = table.Column<Guid>(type: "char(36)", nullable: false),
-                    New
-                    table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    NewWeight = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
