@@ -1,8 +1,10 @@
 <div>
   <div class="profile-content">
-    <div class="profile-card">
-      <mat-card-title>{{ user.surname }}</mat-card-title>
-      <mat-card-subtitle>{{ user.phoneNumber }}</mat-card-subtitle>
+    <div class="profile-card main">
+      <div style="height: min-content;">
+        <mat-card-title class="username">{{ user.surname }}</mat-card-title>
+        <mat-card-subtitle class="phoneNo">{{ user.phoneNumber }}</mat-card-subtitle>
+      </div>
     </div>
     <div class="profile-card green">
       <span class="main-digits">{{ user.goalWeight }}</span><span class="measuring-units">kg</span>
@@ -39,88 +41,66 @@
   'orange': bmi >= 30 && bmi < 35,
   'red': bmi > 35
 }">
-      <span class="main-digits">{{bmiLevel}}</span>
+      <span class="main-text">{{bmiLevel}}</span>
       <span class="title">BMI level</span>
     </div>
 
   </div>
   <!--<button mat-flat-button (click)="logOut()" color="primary">Log out</button>-->
+  <!-- <div class="progress-container">
+     <mat-progress-bar mode="determinate" [value]="bmi" [ngClass]="{
+                       'underweight' : bmi < 18.5,
+     'normal': bmi >= 18.5 && bmi < 25,
+     'overweight': bmi >= 25 && bmi < 30,
+     'obese': bmi >= 30 }">
+     </mat-progress-bar>
+     <div class="marker underweight-marker" style="left: calc(18.5% - 2px)"></div>
+     <div class="marker normal-marker" style="left: calc(25% - 2px)"></div>
+     <div class="marker overweight-marker" style="left: calc(30% - 2px)"></div>
+   </div>
+   <div class="description">
+     <p *ngIf="bmi < 18.5">Your BMI is {{ bmi.toFixed(1) }}, which indicates you are underweight.</p>
+     <p *ngIf="bmi >= 18.5 && bmi < 25">Your BMI is {{ bmi.toFixed(1) }}, which falls within the normal weight range.</p>
+     <p *ngIf="bmi >= 25 && bmi < 30">Your BMI is {{ bmi.toFixed(1) }}, which indicates you are overweight.</p>
+     <p *ngIf="bmi >= 30">Your BMI is {{ bmi.toFixed(1) }}, which indicates you are obese.</p>
+   </div>-->
 
 
 
-
- <!-- <div class="progress-container">
-    <mat-progress-bar mode="determinate" [value]="bmi" [ngClass]="{
-                      'underweight' : bmi < 18.5,
-    'normal': bmi >= 18.5 && bmi < 25,
-    'overweight': bmi >= 25 && bmi < 30,
-    'obese': bmi >= 30 }">
-    </mat-progress-bar>
-    <div class="marker underweight-marker" style="left: calc(18.5% - 2px)"></div>
-    <div class="marker normal-marker" style="left: calc(25% - 2px)"></div>
-    <div class="marker overweight-marker" style="left: calc(30% - 2px)"></div>
-  </div>
-  <div class="description">
-    <p *ngIf="bmi < 18.5">Your BMI is {{ bmi.toFixed(1) }}, which indicates you are underweight.</p>
-    <p *ngIf="bmi >= 18.5 && bmi < 25">Your BMI is {{ bmi.toFixed(1) }}, which falls within the normal weight range.</p>
-    <p *ngIf="bmi >= 25 && bmi < 30">Your BMI is {{ bmi.toFixed(1) }}, which indicates you are overweight.</p>
-    <p *ngIf="bmi >= 30">Your BMI is {{ bmi.toFixed(1) }}, which indicates you are obese.</p>
-  </div>-->
-
-
-
-  <mat-card class="statistics-card">
-    <mat-card-header>
-      <mat-card-title>Statistics</mat-card-title>
-    </mat-card-header>
+  <div class="statistics-card profile-card">
+    <div style="padding: 4px;">
+      <h3 style="font-weight: 500; font-size: 20px; line-height: 25px; margin-bottom: 20px">Weight statistics</h3>
+    </div>
     <mat-card-content>
-      <div class="user-info">
-        <mat-grid-list cols="2" rowHeight="1:1">
-          <mat-grid-tile>
-            <mat-card>
-              <mat-card-header>
-                <mat-card-title>Current Weight</mat-card-title>
-              </mat-card-header>
-              <mat-card-content>
-                <p>{{ user.weight }} kg</p>
-              </mat-card-content>
-            </mat-card>
-          </mat-grid-tile>
-          <mat-grid-tile>
-            <mat-card>
-              <mat-card-header>
-                <mat-card-title>Goal Weight</mat-card-title>
-              </mat-card-header>
-              <mat-card-content>
-                <p>{{ user.goalWeight }} kg</p>
-              
-           
-              </mat-card-content>
-            </mat-card>
-          </mat-grid-tile>
-        </mat-grid-list>
-      </div>
       <div echarts [options]="chartOption" class="echart"></div>
     </mat-card-content>
-  </mat-card>
 
-  <div>
-    <mat-form-field appearance="fill">
-      <mat-label>Enter Weight:</mat-label>
-      <input matInput type="number" [(ngModel)]="weight">
-    </mat-form-field>
-    <button mat-raised-button color="primary" (click)="addWeightHistory()">Add Weight History</button>
+    <div class="half">
+      <div>
+        <label>Your current weight</label>
+        <div class="half inner">
+          <input matInput type="number" [(ngModel)]="weight">
 
-    <mat-form-field appearance="fill">
-      <mat-label>Update Goal Weight</mat-label>
-      <input matInput type="number" [(ngModel)]="updatedGoalWeight">
-    </mat-form-field>
+          <button class="main-btn" (click)="addWeightHistory()">Add Weight History</button>
+        </div>
+      </div>
+
+      <div>
+        <label>Your current goal</label>
+        <div class="half inner">
+          <input matInput type="number" [(ngModel)]="updatedGoalWeight">
+          <button class="main-btn" (click)="updateGoalWeight()">Update</button>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <h2>Weight History:</h2>
-  <ul>
-    <li *ngFor="let item of weightHistory">
-      Weight: {{ item.newWeight }}, Date: {{ item.updatedDate | date:'short' }}
-    </li>
-  </ul>
-</div>
+  <!--<div class="profile-card" style="margin: 20px 0 50px">
+    <h2>Weight History:</h2>
+    <ul>
+      <li *ngFor="let item of weightHistory">
+        Weight: {{ item.newWeight }}, Date: {{ item.updatedDate | date:'short' }}
+      </li>
+    </ul>
+  </div>
+</div>-->

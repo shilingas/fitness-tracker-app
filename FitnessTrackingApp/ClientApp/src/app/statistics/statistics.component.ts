@@ -152,7 +152,7 @@ export class StatisticsComponent implements OnInit {
 
     this.chartOption = {
       title: {
-        text: 'Weight History'
+        text: ''
       },
       tooltip: {
         trigger: 'axis' // Specify the tooltip trigger type
@@ -171,13 +171,16 @@ export class StatisticsComponent implements OnInit {
         {
           name: 'Weight History', // Set the name of the series
           type: 'line',
-          data: weights
-        }
+          data: weights,
+          itemStyle: {
+            color: 'rgb(104,174,255)' // Set the color of the points (markers) on the line
+          },
+          lineStyle: {
+            color: 'rgb(104,174,255)' // Set the color of the line
+          }
+        } as any // Type assertion to bypass the TypeScript error
       ]
     };
   }
-
-
-
 
 }

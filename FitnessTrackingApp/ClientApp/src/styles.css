@@ -102,6 +102,11 @@ body {
   line-height: 38px;
 }
 
+.profile-card span.main-text {
+  font-size: 40px;
+  line-height: 38px;
+}
+
 .profile-card span.measuring-units {
   text-transform: uppercase;
   padding-left: 5px;
@@ -117,4 +122,50 @@ body {
   display: block;
   transform: rotate(-45deg);
   margin-bottom: 20px;
+}
+
+.username, .phoneNo {
+  display: block;
+}
+
+.profile-card.main {
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.main-btn {
+  background: rgb(104,174,255);
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 30px;
+  font-size: 15px;
+  text-transform: uppercase
+}
+
+.half input {
+  background: #f3f5f7;
+  border-radius: 3px;
+  font-size: 15px;
+  padding: 10px 30px;
+  width: calc(100% - 60px);
+}
+
+.half {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.half label {
+    font-size: 15px;
+}
+
+.half.inner {
+    gap: 5px;
+}
+
+.mat-tab-label-container {
+    background: #fff;
 }
