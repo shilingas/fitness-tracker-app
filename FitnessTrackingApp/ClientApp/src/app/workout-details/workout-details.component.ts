@@ -6,6 +6,7 @@ import { User } from '../models/User';
 import { UserExercise } from '../models/UserExercise';
 import { DataService } from '../services/data-service/data.service';
 import { forkJoin } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-workout-details',
   templateUrl: './workout-details.component.html',
@@ -21,7 +22,7 @@ export class WorkoutDetailsComponent implements OnInit {
   currentExercises!: UserExercise[];
   displayedColumns: string[] = ['name', 'maxReps', 'maxWeight'];
   isLoading: boolean = true; // Variable to track loading state
-  constructor(private formBuilder: FormBuilder, private dataService: DataService, private route: ActivatedRoute) { }
+  constructor(private formBuilder: FormBuilder, private dataService: DataService, private route: ActivatedRoute, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
@@ -70,6 +71,9 @@ export class WorkoutDetailsComponent implements OnInit {
 
     this.dataService.createUserExercise(userExercise).subscribe((x: any) => {
       console.log('created user exercise');
+      this.snackBar.open('Exercise is added to the workout!', 'Close', {
+        duration: 2000,
+      });
       this.currentExerciseId = x.id;
 
 

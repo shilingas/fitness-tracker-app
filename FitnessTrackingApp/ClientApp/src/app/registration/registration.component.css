@@ -1,7 +1,38 @@
-/* registration.component.css */
-.login, .register {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.register {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px 20px;
+}
+
+.login {
+    width: 30%;
+    margin: 0 auto;
+}
+
+.login .center {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
+}
+
+input, select {
+  background: #f3f5f7;
+  border-radius: 3px;
+  font-size: 15px;
+  padding: 10px 15px;
+  width: 100%;
+  display: block;
+  border: 0;
+}
+
+table input {
+  width: calc(100% - 30px);
+}
+
+label {
+    font-size: 15px;
+}
+
+input:focus {
+    outline: none;
 }

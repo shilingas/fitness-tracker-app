@@ -4,6 +4,7 @@ import { DataService } from '../services/data-service/data.service';
 import { Exercise } from '../models/Exercise';
 import { UserExercise } from '../models/UserExercise';
 import { CreateWorkout } from '../models/CreateWorkout';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-workout-creation-form',
@@ -18,7 +19,7 @@ export class WorkoutCreationFormComponent implements OnInit {
   displayedColumns: string[] = ['name', 'actions'];
   editingWorkoutId: string | null = null;
   isLoading: boolean = true; // Variable to track loading state
-  constructor(private formBuilder: FormBuilder, private dataService: DataService) { }
+  constructor(private formBuilder: FormBuilder, private dataService: DataService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
@@ -54,6 +55,9 @@ export class WorkoutCreationFormComponent implements OnInit {
     if (this.editingWorkoutId && workout.name) {
       this.dataService.updateWorkout(this.editingWorkoutId, workout).subscribe((updatedWorkout: CreateWorkout) => {
         console.log('Workout updated:', updatedWorkout);
+        this.snackBar.open('Workout is updated!', 'Close', {
+          duration: 2000,
+        });
         this.loadWorkouts();
         this.cancelEdit();
       });
@@ -67,6 +71,9 @@ export class WorkoutCreationFormComponent implements OnInit {
   handleDelete(id: string) {
     this.dataService.deleteWorkout(id).subscribe(() => {
       console.log('Workout deleted');
+      this.snackBar.open('Workout is deleted!', 'Close', {
+        duration: 2000,
+      });
       this.loadWorkouts();
     });
   }

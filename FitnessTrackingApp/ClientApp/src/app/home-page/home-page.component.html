@@ -1,17 +1,19 @@
-<mat-tab-group [selectedIndex]="selectedIndex" (selectedIndexChange)="onTabChange($event)" mat-stretch-tabs="false" mat-align-tabs="start">
-  <mat-tab label="Statistics">
-    <ng-container *ngIf="selectedIndex === 0">
-      <app-statistics></app-statistics>
-    </ng-container>
-  </mat-tab>
-  <mat-tab label="Exercises">
-    <ng-container *ngIf="selectedIndex === 1">
-      <app-exercise-creation-form></app-exercise-creation-form>
-    </ng-container>
-  </mat-tab>
-  <mat-tab label="Workouts">
-    <ng-container *ngIf="selectedIndex === 2">
-      <app-workout-creation-form></app-workout-creation-form>
-    </ng-container>
-  </mat-tab>
-</mat-tab-group>
+<div class="container">
+  <mat-tab-group [selectedIndex]="selectedIndex" (selectedIndexChange)="onTabChange($event)" mat-stretch-tabs="false" mat-align-tabs="start">
+    <mat-tab label="Statistics">
+      <ng-container *ngIf="selectedIndex === 0">
+        <app-statistics></app-statistics>
+      </ng-container>
+    </mat-tab>
+    <mat-tab label="Exercises">
+      <ng-container *ngIf="selectedIndex === 1">
+        <app-exercise-creation-form></app-exercise-creation-form>
+      </ng-container>
+    </mat-tab>
+    <mat-tab label="Workouts">
+      <ng-container *ngIf="selectedIndex === 2">
+        <app-workout-creation-form></app-workout-creation-form>
+      </ng-container>
+    </mat-tab>
+  </mat-tab-group>
+</div>

@@ -2,49 +2,51 @@
 <div class="registration-container">
   <mat-tab-group mat-stretch-tabs>
     <mat-tab label="Registration">
-        <form (submit)="onSubmit()" class="register">
-          <mat-form-field>
-            <mat-label>Username</mat-label>
-            <input matInput type="text" name="name" [(ngModel)]="formData.name" required>
-          </mat-form-field>
+        <form (submit)="onSubmit()" class="register profile-card container" style=" margin: 20px auto">
+          <div>
+            <label>Username</label>
+            <input type="text" name="name" [(ngModel)]="formData.name" required>
+          </div>
 
-          <mat-form-field>
-            <mat-label>Name</mat-label>
-            <input matInput type="text" name="surname" [(ngModel)]="formData.surname" required>
-          </mat-form-field>
+          <div>
+            <label>Name</label>
+            <input type="text" name="surname" [(ngModel)]="formData.surname" required>
+          </div>
 
-          <mat-form-field>
-            <mat-label>Phone Number</mat-label>
-            <input matInput type="text" name="phoneNumber" [(ngModel)]="formData.phoneNumber" required>
-          </mat-form-field>
+          <div>
+            <label>Phone Number</label>
+            <input type="text" name="phoneNumber" [(ngModel)]="formData.phoneNumber" required>
+          </div>
 
-          <mat-form-field>
-            <mat-label>Weight</mat-label>
-            <input matInput type="number" name="weight" [(ngModel)]="formData.weight" required>
-          </mat-form-field>
+          <div>
+            <label>Height</label>
+            <input type="number" name="heigth" [(ngModel)]="formData.heigth" required>
+          </div>
 
-          <mat-form-field>
-            <mat-label>Height</mat-label>
-            <input matInput type="number" name="heigth" [(ngModel)]="formData.heigth" required>
-          </mat-form-field>
+          <div>
+            <label>Weight</label>
+            <input type="number" name="weight" [(ngModel)]="formData.weight" required>
+          </div>
 
-          <mat-form-field>
-            <mat-label>Goal Weight</mat-label>
-            <input matInput type="number" name="goalWeight" [(ngModel)]="formData.goalWeight" required>
-          </mat-form-field>
+          <div>
+            <label>Goal Weight</label>
+            <input type="number" name="goalWeight" [(ngModel)]="formData.goalWeight" required>
+          </div>
 
-          <button mat-raised-button color="primary" type="submit">Register</button>
+          <button class="main-btn" style="margin-top: 10px; grid-column: 3 / 4;" type="submit">Register</button>
         </form>
     </mat-tab>
 
     <mat-tab label="Login">
-        <form (submit)="onLogin()" class="login">
-          <mat-form-field>
-            <mat-label>Username</mat-label>
-            <input matInput type="text" name="loginName" [(ngModel)]="loginName" required>
-          </mat-form-field>
-          <div class="button-container">
-            <button mat-raised-button color="primary" type="submit">Login</button>
+        <form (submit)="onLogin()" class="login container profile-card" style="margin: 20px auto">
+          <div class="center">
+            <div>
+              <label>Username</label>
+              <input matInput type="text" name="loginName" [(ngModel)]="loginName" required>
+            </div>
+            <div style="display: flex; align-items: end">
+              <button class="main-btn" style="width: 100%" color="primary" type="submit">Login</button>
+            </div>
           </div>
         </form>
     </mat-tab>

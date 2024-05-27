@@ -1,24 +1,25 @@
-/* Increase the width of the table */
 .mat-table {
+    width: 100%;
+}
+
+input {
+  background: #f3f5f7;
+  border-radius: 3px;
+  font-size: 15px;
+  padding: 10px 15px;
   width: 100%;
+  display: block;
+  border: 0;
 }
 
-/* Increase the width of the cells in the table */
-.mat-cell, .mat-header-cell {
-  min-width: 200px; /* Adjust as needed */
+table input {
+  width: calc(100% - 30px);
 }
 
-/* Increase the font size of the table headers */
-.mat-header-cell {
-  font-size: 16px; /* Adjust as needed */
+input:focus {
+  outline: none;
 }
 
-/* Increase the font size and padding of the cell contents */
-.mat-cell {
-  font-size: 14px; /* Adjust as needed */
-  padding: 12px 16px; /* Adjust as needed */
-}
-.mat-icon-button {
-  display: flex;
-  align-items: center;
+label {
+  font-size: 15px;
 }

@@ -16,7 +16,19 @@ code {
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: #f3f5f7
+}
+
+.profile-content {
+  width: 100%;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  display: grid;
+  padding: 10px 0 20px;
+  grid-gap: 20px;
+}
 
 
 .mat-progress-bar {
@@ -46,4 +58,115 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .mat-progress-bar.obese .mat-progress-bar-fill::after {
   background-color: #ff8000 !important; /* Orange */
+}
+
+.profile-card {
+  background: #fff;
+  padding: 20px;
+  font-size: 20px;
+  border-radius: 7px;
+}
+
+.profile-card.blue {
+  background: rgb(104,174,255);
+  background: linear-gradient(115deg, rgba(104,174,255,1) 0%, rgba(111,235,255,1) 100%);
+  color: #fff;
+}
+
+.profile-card.green {
+  background: rgb(93,189,122);
+  color: #fff;
+  background: linear-gradient(115deg, rgba(93,189,122,1) 0%, rgba(128,251,154,1) 100%);
+}
+
+.profile-card.orange {
+  background: rgb(228,89,50);
+  background: linear-gradient(115deg, rgba(228,89,50,1) 0%, rgba(243,169,62,1) 100%);
+  color: #fff;
+}
+
+.profile-card.red {
+  background: rgb(192,57,43);
+  background: linear-gradient(115deg, rgba(192,57,43,1) 0%, rgba(192,57,43,1) 100%);
+  color: #fff;
+}
+
+.profile-card.grey {
+  background: rgb(61,61,61);
+  background: linear-gradient(115deg, rgba(61,61,61,1) 0%, rgba(105,105,105,1) 100%);
+  color: #fff;
+}
+
+.profile-card span.main-digits {
+  font-size: 50px;
+  line-height: 38px;
+}
+
+.profile-card span.main-text {
+  font-size: 40px;
+  line-height: 38px;
+}
+
+.profile-card span.measuring-units {
+  text-transform: uppercase;
+  padding-left: 5px;
+}
+
+.profile-card span.title {
+  display: block;
+  margin-top: 8px;
+}
+
+.profile-card.wourkouts-count img {
+  height: 30px;
+  display: block;
+  transform: rotate(-45deg);
+  margin-bottom: 20px;
+}
+
+.username, .phoneNo {
+  display: block;
+}
+
+.profile-card.main {
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.main-btn {
+  background: rgb(104,174,255);
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 30px;
+  font-size: 15px;
+  text-transform: uppercase
+}
+
+.half input {
+  background: #f3f5f7;
+  border-radius: 3px;
+  font-size: 15px;
+  padding: 10px 30px;
+  width: 100%;
+  border: none;
+}
+
+.half {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.half label {
+    font-size: 15px;
+}
+
+.half.inner {
+    gap: 5px;
+}
+
+.mat-tab-label-container {
+    background: #fff;
 }
