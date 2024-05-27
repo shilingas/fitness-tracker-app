@@ -77,6 +77,8 @@ export class StatisticsComponent implements OnInit {
       };
       this.dataService.createWeightHistory(newHistory).subscribe((response) => {
         console.log('Weight history added:', response);
+        this.user.weight = this.weight;
+        this.bmi = (this.user.weight / this.user.heigth / this.user.heigth) * 10000;
         this.weight = 0;
         this.fetchWeightHistory();
       }, (error) => {
