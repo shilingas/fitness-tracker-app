@@ -1,27 +1,32 @@
 
-  <form [formGroup]="formGroup" (ngSubmit)="handleSubmit()">
-    <mat-form-field>
-      <mat-label>Exercise Name</mat-label>
-      <mat-select formControlName="exerciseName">
-        <mat-option *ngFor="let exercise of exercises" [value]="exercise.title">
+<div class="profile-card container" style="margin: 20px auto;">
+  <h3 style="font-weight: 500; font-size: 20px; line-height: 25px; margin-bottom: 20px">Add exercise to workout</h3>
+  <form [formGroup]="formGroup" (ngSubmit)="handleSubmit()" class="main-form">
+    <div>
+      <label for="exerciseName">Exercise Name</label>
+      <select id="exerciseName" formControlName="exerciseName">
+        <option *ngFor="let exercise of exercises" [value]="exercise.title">
           {{ exercise.title }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Max Weight</mat-label>
-      <input matInput formControlName="maxWeight" type="number" />
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Max Reps</mat-label>
-      <input matInput formControlName="maxReps" type="number" />
-    </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">Submit</button>
-  </form>
+        </option>
+      </select>
+    </div>
 
-  <div>
-    <h2>Exercises in Workout</h2>
-    <table mat-table [dataSource]="exerciseDetails" class="mat-elevation-z8">
+    <div>
+      <label>Max Weight</label>
+      <input formControlName="maxWeight" type="number">
+    </div>
+    <div>
+      <label>Max Reps</label>
+      <input formControlName="maxReps" type="number">
+    </div>
+    <div class="of-btn">
+      <button class="main-btn" color="primary" type="submit">Submit</button>
+    </div>
+  </form>
+</div>
+  <div class="profile-card container">
+    <h3 style="font-weight: 500; font-size: 20px; line-height: 25px; margin-bottom: 20px">Exercises in workout</h3>
+    <table mat-table [dataSource]="exerciseDetails">
 
       <!-- Name Column -->
       <ng-container matColumnDef="name">
