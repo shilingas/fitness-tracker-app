@@ -62,6 +62,8 @@ export class StatisticsComponent implements OnInit {
       this.userId = x.id;
       console.log(x);
       this.currentUserId = x.id;
+      this.weight = this.user.weight;
+      this.updatedGoalWeight = this.user.goalWeight;
       this.isLoading = false;
       this.dataService.getWorkoutsByUserId(this.currentUserId).subscribe((x: CreateWorkout[]) => {
         this.numberOfWorkouts = x.length;
@@ -76,7 +78,7 @@ export class StatisticsComponent implements OnInit {
         this.bmiLevel = 'Normal';
       }
       else if (this.bmi > 25 && this.bmi <= 30) {
-        this.bmiLevel = 'Obese I';
+        this.bmiLevel = 'Overweight';
       }
       else if (this.bmi > 30 && this.bmi <= 35) {
         this.bmiLevel = 'Obese II';
@@ -111,8 +113,27 @@ export class StatisticsComponent implements OnInit {
       };
       this.dataService.createWeightHistory(newHistory).subscribe((response) => {
         console.log('Weight history added:', response);
-        this.weight = 0;
+        this.user.weight = this.weight;
         this.fetchWeightHistory();
+        this.bmi = (this.user.weight / this.user.heigth / this.user.heigth) * 10000;
+        if (this.bmi < 18.5) {
+          this.bmiLevel = 'Underweight';
+        }
+        else if (this.bmi >= 18.5 && this.bmi <= 25) {
+          this.bmiLevel = 'Normal';
+        }
+        else if (this.bmi > 25 && this.bmi <= 30) {
+          this.bmiLevel = 'Overweight';
+        }
+        else if (this.bmi > 30 && this.bmi <= 35) {
+          this.bmiLevel = 'Obese I';
+        }
+        else if (this.bmi > 35 && this.bmi <= 40) {
+          this.bmiLevel = 'Obese II';
+        }
+        else {
+          this.bmiLevel = 'Obese III';
+        }
       }, (error) => {
         console.error('Error adding weight history:', error);
       });
@@ -138,7 +159,6 @@ export class StatisticsComponent implements OnInit {
       });
       this.dataService.updateGoalWeight(this.userId, newUser).subscribe((x: User) => {
         console.log('updated user weight');
-        this.updatedGoalWeight = 0;
         this.dataService.getUserIdByUsername(this.dataService.getUserName()).subscribe((x: any) => {
           this.user = x;
         })

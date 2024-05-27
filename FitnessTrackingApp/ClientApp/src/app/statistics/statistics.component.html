@@ -79,16 +79,16 @@
       <div>
         <label>Your current weight</label>
         <div class="half inner">
-          <input matInput type="number" [(ngModel)]="weight">
+          <input matInput type="number" value="{{ user.weight }}" [(ngModel)]="weight">
 
-          <button class="main-btn" (click)="addWeightHistory()">Add Weight History</button>
+          <button class="main-btn" (click)="addWeightHistory()">Update</button>
         </div>
       </div>
 
       <div>
         <label>Your current goal</label>
         <div class="half inner">
-          <input matInput type="number" [(ngModel)]="updatedGoalWeight">
+          <input matInput type="number" value="{{ user.goalWeight }}" [(ngModel)]="updatedGoalWeight">
           <button class="main-btn" (click)="updateGoalWeight()">Update</button>
         </div>
       </div>
