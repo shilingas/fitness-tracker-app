@@ -37,6 +37,7 @@ builder.Services.AddDbContext<WorkoutContext>(options =>
     options.UseMySQL(builder.Configuration.GetConnectionString("Host"));
 });
 
+builder.Services.AddSingleton<ICustomLogger, CustomLogger>();
 //builder.Services.Decorate<IWorkoutService, ExampleDecorator>();
 
 builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>

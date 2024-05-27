@@ -5,9 +5,9 @@ namespace FitnessTrackingApp.ServerApp.Middleware
     public class LoggingMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger<LoggingMiddleware> _logger;
+        private readonly ICustomLogger _logger;
 
-        public LoggingMiddleware(RequestDelegate next, ILogger<LoggingMiddleware> logger)
+        public LoggingMiddleware(RequestDelegate next, ICustomLogger logger)
         {
             _next = next;
             _logger = logger;
