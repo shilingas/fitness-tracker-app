@@ -4,6 +4,8 @@ import { HistoryModel } from '../models/HistoryModel';
 import { HistoryModelArray } from '../models/HistoryModelArray';
 import { User } from '../models/User';
 import { DataService } from '../services/data-service/data.service';
+import { CreateWorkout } from '../models/CreateWorkout';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-statistics',
@@ -43,23 +45,55 @@ export class StatisticsComponent implements OnInit {
       }
     ]
   };
-  constructor(private dataService: DataService, private router: Router) { }
+  constructor(private dataService: DataService, private router: Router, private snackBar: MatSnackBar) { }
   user!: User;
-  message: string = '';
+  message: string = 'No workouts yet';
+  bmiLevel = '';
   weightHistory: HistoryModelArray[] = [];
   userId!: string;
-  weight: number = 0; // Property to hold weight input value
+  weight: number = 0; // Property to hold weight input valu
+  selectedIndex = 0;
+  currentUserId!: string;
+  numberOfWorkouts: number = 0;
+  isLoading: boolean = true; // Variable to track loading statee
   ngOnInit(): void {
     this.dataService.getUserIdByUsername(this.dataService.getUserName()).subscribe((x: any) => {
       this.user = x;
       this.userId = x.id;
       console.log(x);
+      this.currentUserId = x.id;
+      this.isLoading = false;
+      this.dataService.getWorkoutsByUserId(this.currentUserId).subscribe((x: CreateWorkout[]) => {
+        this.numberOfWorkouts = x.length;
+        this.message = x.length <= 1 ? `${this.numberOfWorkouts} workout logged` : `${this.numberOfWorkouts} workouts logged`
+        this.isLoading = false;
+      })
       this.bmi = (this.user.weight / this.user.heigth / this.user.heigth) * 10000;
+      if (this.bmi < 18.5) {
+        this.bmiLevel = 'Underweight';
+      }
+      else if (this.bmi >= 18.5 && this.bmi <= 25) {
+        this.bmiLevel = 'Normal';
+      }
+      else if (this.bmi > 25 && this.bmi <= 30) {
+        this.bmiLevel = 'Obese I';
+      }
+      else if (this.bmi > 30 && this.bmi <= 35) {
+        this.bmiLevel = 'Obese II';
+      }
+      else {
+        this.bmiLevel = 'Obese III';
+      }
+      
       this.fetchWeightHistory();
     })
+
   }
   logOut() {
     this.router.navigate(['']);
+    this.snackBar.open('Logged out!', 'Close', {
+      duration: 2000,
+    });
   }
   fetchWeightHistory() {
     this.dataService.getWeightHistoryByUserId(this.userId).subscribe((history: HistoryModelArray[]) => {
@@ -99,6 +133,9 @@ export class StatisticsComponent implements OnInit {
         heigth: this.user.heigth,
         goalWeight: this.updatedGoalWeight
       }
+      this.snackBar.open('Weight goal is updated!', 'Close', {
+        duration: 2000,
+      });
       this.dataService.updateGoalWeight(this.userId, newUser).subscribe((x: User) => {
         console.log('updated user weight');
         this.updatedGoalWeight = 0;
